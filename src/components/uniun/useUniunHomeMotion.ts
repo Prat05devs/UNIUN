@@ -3,6 +3,7 @@
 import { useEffect, type RefObject } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
 import { journeySteps } from "./homeData";
 
 type MotionRef<T> = RefObject<T | null>;
@@ -29,8 +30,6 @@ export function useUniunHomeMotion({
   prefersReducedMotion
 }: UseUniunHomeMotionParams) {
   useEffect(() => {
-    if (prefersReducedMotion) return;
-
     const map = mapRef.current;
     const mapPin = mapPinRef.current;
     const journey = journeyRef.current;
@@ -40,6 +39,33 @@ export function useUniunHomeMotion({
     gsap.registerPlugin(ScrollTrigger);
 
     const media = gsap.matchMedia();
+    let lenis: Lenis | null = null;
+    let rafId = 0;
+    const refreshScroll = () => ScrollTrigger.refresh();
+    const images = Array.from(rootRef.current?.querySelectorAll("img") ?? []);
+
+    if (!prefersReducedMotion) {
+      lenis = new Lenis({
+        duration: 1.05,
+        smoothWheel: true,
+        touchMultiplier: 1.08,
+        lerp: 0.12
+      });
+
+      const raf = (time: number) => {
+        lenis?.raf(time);
+        rafId = window.requestAnimationFrame(raf);
+      };
+
+      rafId = window.requestAnimationFrame(raf);
+      lenis.on("scroll", ScrollTrigger.update);
+    }
+
+    window.addEventListener("load", refreshScroll);
+    images.forEach((image) => {
+      if (!image.complete) image.addEventListener("load", refreshScroll, { once: true });
+    });
+
     const ctx = gsap.context(() => {
       gsap.set(".scroll-progress", {
         transformOrigin: "left center",
@@ -54,7 +80,9 @@ export function useUniunHomeMotion({
         }
       });
 
-      media.add("(min-width: 981px)", () => {
+      if (prefersReducedMotion) return;
+
+      media.add("(min-width: 1024px)", () => {
         const paths = gsap.utils.toArray<SVGPathElement>(".thought-map-lines path");
         paths.forEach((path) => {
           const length = path.getTotalLength();
@@ -103,7 +131,7 @@ export function useUniunHomeMotion({
           .to(".thought-map-glow", { scale: 1.18, opacity: 0.68, duration: 0.8 }, 0);
       });
 
-      media.add("(min-width: 981px)", () => {
+      media.add("(min-width: 1024px)", () => {
         ScrollTrigger.create({
           trigger: journey,
           start: "top top",
@@ -166,6 +194,44 @@ export function useUniunHomeMotion({
           }
         );
       });
+
+      media.add("(min-width: 768px) and (max-width: 1023px)", () => {
+        gsap.fromTo(
+          ".journey-step",
+          { autoAlpha: 0.45, y: 18 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            stagger: 0.08,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: journey,
+              start: "top 70%"
+            }
+          }
+        );
+      });
+
+      media.add("(max-width: 767px)", () => {
+        gsap.utils.toArray<HTMLElement>(".note-step, .mobile-reel-step, .manifesto-lines p").forEach(
+          (item) => {
+            gsap.fromTo(
+              item,
+              { autoAlpha: 0, y: 28 },
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.64,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: item,
+                  start: "top 82%"
+                }
+              }
+            );
+          }
+        );
+      });
     }, rootRef);
 
     const hashScrollTimeout = window.setTimeout(() => {
@@ -186,7 +252,12 @@ export function useUniunHomeMotion({
 
     return () => {
       window.clearTimeout(hashScrollTimeout);
+      window.removeEventListener("load", refreshScroll);
+      images.forEach((image) => image.removeEventListener("load", refreshScroll));
+      if (rafId) window.cancelAnimationFrame(rafId);
+      lenis?.destroy();
       media.revert();
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       ctx.revert();
     };
   }, [

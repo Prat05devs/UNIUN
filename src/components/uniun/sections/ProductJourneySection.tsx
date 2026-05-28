@@ -1,5 +1,6 @@
 import type { RefObject } from "react";
 import { PhoneMockup } from "../../PhoneMockup";
+import { AnimatedPhoneMockup } from "../AnimatedPhoneMockup";
 import { journeySteps, productScreens } from "../homeData";
 import { SectionHeading } from "../SectionHeading";
 import { cn } from "../utils";
@@ -58,6 +59,32 @@ export function ProductJourneySection({
               <PhoneMockup screens={productScreens} activeId={activeScreen} />
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="mobile-product-reel" aria-label="UNIUN product journey">
+        <SectionHeading
+          eyebrow="Product journey"
+          title="One note keeps changing shape."
+          body="Move from feed to channels, threads, graph, and Shiv without losing context."
+          tone="dark"
+        />
+
+        <div className="mobile-reel-steps">
+          {journeySteps.slice(0, 5).map((step, index) => {
+            const screen = productScreens.find((item) => item.id === step.id) ?? productScreens[0];
+
+            return (
+              <article className={`mobile-reel-step reel-${step.id}`} key={step.id}>
+                <div className="mobile-reel-copy">
+                  <span>{String(index + 1).padStart(2, "0")} / {step.label}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.body}</p>
+                </div>
+                <AnimatedPhoneMockup screen={screen} />
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

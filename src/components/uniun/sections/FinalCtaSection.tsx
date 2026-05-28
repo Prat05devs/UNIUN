@@ -4,7 +4,7 @@ import { cn } from "../utils";
 
 export function FinalCtaSection() {
   return (
-    <section className="final-section" aria-labelledby="final-title">
+    <section className="final-section" id="waitlist" aria-labelledby="final-title">
       <div className="final-graph" aria-hidden="true">
         <span />
         <span />
@@ -15,8 +15,8 @@ export function FinalCtaSection() {
 
       <SectionHeading
         eyebrow="Start with one note"
-        title="Build your network. Grow your knowledge. Ask your AI."
-        body="UNIUN brings personal notes, community knowledge, and Shiv into one workspace that stays connected as your work grows."
+        title="Start with one note."
+        body="Build your network. Grow your knowledge. Ask your AI."
         id="final-title"
         align="center"
         tone="dark"
@@ -28,7 +28,6 @@ export function FinalCtaSection() {
             className={cn(primary && "primary")}
             href={href}
             key={label}
-            onClick={(event) => event.preventDefault()}
           >
             <Icon aria-hidden="true" />
             {label}

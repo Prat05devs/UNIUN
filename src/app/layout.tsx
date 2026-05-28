@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://uniun.vercel.app/";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://uniun.vercel.app";
 
 const title = "UNIUN — Your Notes. Your Network. Your AI.";
 
@@ -68,6 +68,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/assets/Users.png",
+        type: "image/png",
         width: 1200,
         height: 630,
         alt: "UNIUN — Your notes, your network, and your AI.",
@@ -79,7 +80,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description: ogDescription,
-    images: ["/assets/Users.png"],
+    images: [
+      {
+        url: "/assets/Users.png",
+        type: "image/png",
+      }
+    ],
   },
 
   robots: {

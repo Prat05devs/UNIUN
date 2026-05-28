@@ -53,7 +53,7 @@ const footerColumns: FooterColumn[] = [
 const socialLinks: SocialLink[] = [
   { href: "mailto:hello@uniun.app", label: "Email", icon: Mail },
   { href: "#community", label: "Community", icon: Users },
-  { href: "#github", label: "Code", icon: SquareCode },
+  { href: "#waitlist", label: "Code", icon: SquareCode },
   { href: "#updates", label: "Updates", icon: Send }
 ];
 

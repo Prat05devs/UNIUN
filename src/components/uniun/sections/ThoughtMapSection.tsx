@@ -27,17 +27,48 @@ const thoughtMapSignals = [
   { label: "Shiv context", value: "Ready" }
 ];
 
+const noteSteps = [
+  {
+    title: "Write a note.",
+    body: "Capture the idea while it is fresh."
+  },
+  {
+    title: "Share it with people.",
+    body: "Send it to a person, a group, or a channel."
+  },
+  {
+    title: "Connect it to other notes.",
+    body: "Keep the source and references close."
+  },
+  {
+    title: "Ask your AI from it.",
+    body: "Let Shiv answer from the context you built."
+  }
+];
+
 export function ThoughtMapSection({ mapRef, mapPinRef }: ThoughtMapSectionProps) {
   return (
     <section ref={mapRef} className="thought-map-section" aria-labelledby="thought-map-title">
       <div ref={mapPinRef} className="thought-map-pin">
         <div className="thought-map-copy">
-          <p className="eyebrow">From private draft to shared context</p>
-          <h2 id="thought-map-title">Watch one note become a living map.</h2>
+          <p className="eyebrow">Everything starts as a note</p>
+          <h2 id="thought-map-title">Write it once. Let it grow with you.</h2>
           <p>
-            A private idea can branch into saved thoughts, channels, threads,
-            direct messages, and AI context without losing where it started.
+            Start with one simple note. Share it, connect it, and ask from it
+            without losing where the idea began.
           </p>
+        </div>
+
+        <div className="note-step-timeline" aria-label="How one note grows">
+          {noteSteps.map((step, index) => (
+            <article className="note-step" key={step.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </div>
+            </article>
+          ))}
         </div>
 
         <div className="thought-map-field" aria-hidden="true">

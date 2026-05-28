@@ -3,7 +3,11 @@ import { SectionHeading } from "../SectionHeading";
 
 export function PillarsSection() {
   return (
-    <section className="pillars-section" id="pillars" aria-labelledby="pillars-title">
+    <section
+      className="pillars-section"
+      id="pillars"
+      aria-labelledby="pillars-title"
+    >
       <SectionHeading
         eyebrow="Built around three simple actions"
         title="Create. Organize. Reflect."
@@ -12,12 +16,17 @@ export function PillarsSection() {
       />
 
       <div className="pillar-cinema">
-        {pillars.map(({ name, action, body, icon: Icon }) => (
-          <article
-            className="pillar-card"
-            key={name}
-          >
-            <Icon aria-hidden="true" />
+        {pillars.map(({ name, action, body, image }) => (
+          <article className="pillar-card" key={name}>
+            <div className="pillar-icon-wrap">
+              <img
+                src={image}
+                alt=""
+                className="pillar-icon"
+                aria-hidden="true"
+              />
+            </div>
+
             <small>{name}</small>
             <h3>{action}</h3>
             <p>{body}</p>

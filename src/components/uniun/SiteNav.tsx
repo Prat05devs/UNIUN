@@ -18,6 +18,9 @@ export function SiteNav() {
           </a>
         ))}
       </nav>
+      <a className="nav-cta" href="#waitlist">
+        Join waitlist
+      </a>
     </header>
   );
 }

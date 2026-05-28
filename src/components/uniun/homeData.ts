@@ -1,9 +1,6 @@
 import {
-  Bot,
   Bell,
   Laptop,
-  Network,
-  NotebookPen,
   Smartphone,
   SquareCode,
   type LucideIcon
@@ -27,7 +24,7 @@ export type Pillar = {
   name: string;
   action: string;
   body: string;
-  icon: LucideIcon;
+  image: string;
 };
 
 export type DownloadLink = {
@@ -69,13 +66,13 @@ export const journeySteps: JourneyStep[] = [
   {
     id: "drawer",
     label: "Channels",
-    title: "Move between public, private, saved, and direct spaces.",
-    body: "One network can support groups, teams, and personal memory."
+    title: "Organize people into public and private spaces.",
+    body: "Channels, saved notes, groups, and DMs stay easy to move through."
   },
   {
     id: "thread",
     label: "Threads",
-    title: "Every note can carry its references with it.",
+    title: "Follow every idea back to its source.",
     body: "The story does not vanish when a conversation moves forward."
   },
   {
@@ -102,37 +99,37 @@ export const pillars: Pillar[] = [
   {
     name: "Brahma",
     action: "Create",
-    body: "Write notes. Reference ideas. Start from one thought.",
-    icon: NotebookPen
+    body: "Write notes and connect new ideas.",
+    image: "./brahma.svg"
   },
   {
     name: "Vishnu",
     action: "Organize",
     body: "Keep feeds, channels, DMs, and groups structured.",
-    icon: Network
+    image: "./vishnu.svg"
   },
   {
     name: "Shiv",
     action: "Reflect",
-    body: "Ask questions from your own notes using your personal AI.",
-    icon: Bot
+    body: "Ask questions from your own connected knowledge.",
+    image: "./shiva.svg"
   }
 ];
 
 export const ownership = [
   "Offline-first",
   "Open source",
-  "Decentralized",
-  "Add relay",
-  "Key management",
-  "Bring your own backend",
   "No forced algorithm",
-  "Your notes, your keys"
+  "Notification-free",
+  "Add relay",
+  "Bring your own backend",
+  "Key management"
 ];
 
 export const downloadLinks: DownloadLink[] = [
   { label: "Join waitlist", href: "#waitlist", icon: Bell, primary: true },
-  { label: "Mobile apps", href: "#mobile", icon: Smartphone },
-  { label: "Desktop apps", href: "#desktop", icon: Laptop },
-  { label: "GitHub", href: "#github", icon: SquareCode }
+  { label: "Android coming soon", href: "#waitlist", icon: Smartphone },
+  { label: "iPhone coming soon", href: "#waitlist", icon: Smartphone },
+  { label: "Desktop coming soon", href: "#waitlist", icon: Laptop },
+  { label: "GitHub coming soon", href: "#waitlist", icon: SquareCode }
 ];

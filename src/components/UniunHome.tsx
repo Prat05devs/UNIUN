@@ -48,8 +48,8 @@ export function UniunHome() {
 
       <main id="top">
         <HeroSection />
-        <ThoughtMapSection mapRef={mapRef} mapPinRef={mapPinRef} />
         <NoteFormsSection />
+        <ThoughtMapSection mapRef={mapRef} mapPinRef={mapPinRef} />
         <ProductJourneySection
           activeScreen={activeScreen}
           journeyRef={journeyRef}
