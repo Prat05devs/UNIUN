@@ -1,6 +1,4 @@
 import { ArrowDown, Bell, SquareCode } from "lucide-react";
-import { FloatingNoteCard } from "../FloatingNoteCard";
-import { GraphLineLayer } from "../GraphLineLayer";
 
 export function HeroSection() {
   return (
@@ -30,20 +28,6 @@ export function HeroSection() {
               GitHub soon
             </a>
           </div>
-        </div>
-
-        <div className="hero-mobile-network" aria-hidden="true">
-          <GraphLineLayer className="hero-mobile-lines" />
-          <FloatingNoteCard
-            className="hero-seed-note"
-            eyebrow="Private draft"
-            title="Start with one note"
-            body="A thought becomes context."
-          />
-          <span className="seed-node node-message">Message</span>
-          <span className="seed-node node-thread">Thread</span>
-          <span className="seed-node node-graph">Graph</span>
-          <span className="seed-node node-ai">AI</span>
         </div>
 
         <a className="scroll-cue" href="#note-forms">

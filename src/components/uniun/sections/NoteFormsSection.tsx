@@ -18,6 +18,7 @@ export function NoteFormsSection() {
 
       <div className="note-transform-chip" aria-label="One note can become many forms">
         <strong>One note</strong>
+        <span aria-hidden="true" className="chip-current" />
         <div>
           {chipLabels.map((label) => (
             <span key={label}>{label}</span>
