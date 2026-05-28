@@ -13,7 +13,7 @@ const description =
 const ogDescription =
   "A note-sharing network where ideas become feed, thread, graph, and AI context. Built for ownership, clarity, and knowledge.";
 
-const ogImage = "/og-users.png";
+const ogImage = "/og-users.jpg";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -72,7 +72,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImage,
-        type: "image/png",
+        type: "image/jpeg",
         width: 1200,
         height: 630,
         alt: "UNIUN — Your notes, your network, and your AI.",
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImage,
-        type: "image/png",
+        type: "image/jpeg",
       }
     ],
   },
