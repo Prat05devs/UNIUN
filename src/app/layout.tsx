@@ -11,7 +11,9 @@ const description =
   "Write notes, connect conversations, organize groups, and ask your own AI from your knowledge — privately, locally, and in your control.";
 
 const ogDescription =
-  "A note-sharing network where ideas become feeds, threads, graphs, and AI context. Built for ownership, clarity, and connected knowledge.";
+  "A note-sharing network where ideas become feed, thread, graph, and AI context. Built for ownership, clarity, and knowledge.";
+
+const ogImage = "/og-users.png";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -47,14 +49,16 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/assets/uniun_logo.png",
+        url: "/favicon.png",
         type: "image/png",
+        sizes: "64x64",
       },
     ],
     apple: [
       {
-        url: "/assets/uniun_logo.png",
+        url: "/apple-touch-icon.png",
         type: "image/png",
+        sizes: "180x180",
       },
     ],
   },
@@ -67,7 +71,7 @@ export const metadata: Metadata = {
     description: ogDescription,
     images: [
       {
-        url: "/assets/Users.png",
+        url: ogImage,
         type: "image/png",
         width: 1200,
         height: 630,
@@ -82,7 +86,7 @@ export const metadata: Metadata = {
     description: ogDescription,
     images: [
       {
-        url: "/assets/Users.png",
+        url: ogImage,
         type: "image/png",
       }
     ],
