@@ -51,7 +51,7 @@ const footerColumns: FooterColumn[] = [
 ];
 
 const socialLinks: SocialLink[] = [
-  { href: "mailto:Pranavpandey1998developer@gmail.com", label: "Email", icon: Mail },
+  { href: "mailto:pranavpandey1998developer@gmail.com", label: "Email", icon: Mail },
   { href: "/support", label: "Community", icon: Users },
   { href: "/#waitlist", label: "Code", icon: SquareCode },
   { href: "/#waitlist", label: "Updates", icon: Send }

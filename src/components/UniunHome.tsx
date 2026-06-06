@@ -43,7 +43,6 @@ export function UniunHome() {
 
   return (
     <div ref={rootRef}>
-      <div className="scroll-progress" aria-hidden="true" />
       <SiteNav />
 
       <main id="top">

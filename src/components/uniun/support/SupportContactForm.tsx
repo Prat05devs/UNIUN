@@ -3,7 +3,7 @@
 import { FormEvent } from "react";
 import { Send } from "lucide-react";
 
-const supportEmail = "Pranavpandey1998developer@gmail.com";
+const supportEmail = "pranavpandey1998developer@gmail.com";
 
 export function SupportContactForm() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

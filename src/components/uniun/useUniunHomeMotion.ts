@@ -67,19 +67,6 @@ export function useUniunHomeMotion({
     });
 
     const ctx = gsap.context(() => {
-      gsap.set(".scroll-progress", {
-        transformOrigin: "left center",
-        scaleX: 0
-      });
-
-      ScrollTrigger.create({
-        start: 0,
-        end: "max",
-        onUpdate: (self) => {
-          gsap.set(".scroll-progress", { scaleX: self.progress });
-        }
-      });
-
       if (prefersReducedMotion) return;
 
       media.add("(min-width: 1024px)", () => {

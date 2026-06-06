@@ -17,7 +17,7 @@ const siteMapGroups = [
     title: "Support",
     links: [
       { href: "/support", label: "Support and contact" },
-      { href: "mailto:Pranavpandey1998developer@gmail.com", label: "Email support" }
+      { href: "mailto:pranavpandey1998developer@gmail.com", label: "Email support" }
     ]
   },
   {

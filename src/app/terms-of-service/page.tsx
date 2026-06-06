@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { SiteFooter } from "../../components/uniun/SiteFooter";
 import { SiteNav } from "../../components/uniun/SiteNav";
 
-const supportEmail = "Pranavpandey1998developer@gmail.com";
+const supportEmail = "pranavpandey1998developer@gmail.com";
 const displaySupportEmail = "hello@uniun.app";
 
 export const metadata: Metadata = {

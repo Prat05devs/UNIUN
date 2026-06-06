@@ -1,5 +1,6 @@
 import { downloadLinks } from "../homeData";
 import { SectionHeading } from "../SectionHeading";
+import { WaitlistModalTrigger } from "../WaitlistModalTrigger";
 import { cn } from "../utils";
 
 export function FinalCtaSection() {
@@ -24,14 +25,23 @@ export function FinalCtaSection() {
 
       <div className="cta-row" aria-label="Download links">
         {downloadLinks.map(({ label, href, icon: Icon, primary }) => (
-          <a
-            className={cn(primary && "primary")}
-            href={href}
-            key={label}
-          >
-            <Icon aria-hidden="true" />
-            {label}
-          </a>
+          primary ? (
+            <WaitlistModalTrigger
+              className={cn(primary && "primary")}
+              icon={Icon}
+              key={label}
+              label={label}
+            />
+          ) : (
+            <a
+              className={cn(primary && "primary")}
+              href={href}
+              key={label}
+            >
+              <Icon aria-hidden="true" />
+              {label}
+            </a>
+          )
         ))}
       </div>
 
