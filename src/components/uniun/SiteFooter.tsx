@@ -24,37 +24,37 @@ const footerColumns: FooterColumn[] = [
   {
     title: "Product",
     links: [
-      { href: "#journey", label: "Product tour" },
-      { href: "#pillars", label: "Brahma Vishnu Shiv" },
-      { href: "#ownership", label: "Ownership" },
-      { href: "#top", label: "Start again" }
+      { href: "/#journey", label: "Product tour" },
+      { href: "/#pillars", label: "Brahma Vishnu Shiv" },
+      { href: "/#ownership", label: "Ownership" },
+      { href: "/#top", label: "Start again" }
     ]
   },
   {
     title: "Workspace",
     links: [
-      { href: "#journey", label: "Notes" },
-      { href: "#journey", label: "Channels" },
-      { href: "#journey", label: "Graph" },
-      { href: "#journey", label: "Shiv AI" }
+      { href: "/#journey", label: "Notes" },
+      { href: "/#journey", label: "Channels" },
+      { href: "/#journey", label: "Graph" },
+      { href: "/#journey", label: "Shiv AI" }
     ]
   },
   {
     title: "Community",
     links: [
-      { href: "#ownership", label: "Open source" },
-      { href: "#ownership", label: "Decentralized" },
-      { href: "#ownership", label: "Bring your backend" },
-      { href: "#ownership", label: "Your keys" }
+      { href: "/#ownership", label: "Open source" },
+      { href: "/#ownership", label: "Decentralized" },
+      { href: "/#ownership", label: "Bring your backend" },
+      { href: "/support", label: "Support" }
     ]
   }
 ];
 
 const socialLinks: SocialLink[] = [
-  { href: "mailto:hello@uniun.app", label: "Email", icon: Mail },
-  { href: "#community", label: "Community", icon: Users },
-  { href: "#waitlist", label: "Code", icon: SquareCode },
-  { href: "#updates", label: "Updates", icon: Send }
+  { href: "mailto:Pranavpandey1998developer@gmail.com", label: "Email", icon: Mail },
+  { href: "/support", label: "Community", icon: Users },
+  { href: "/#waitlist", label: "Code", icon: SquareCode },
+  { href: "/#waitlist", label: "Updates", icon: Send }
 ];
 
 const trustItems = [
@@ -117,9 +117,10 @@ export function SiteFooter() {
         <div className="footer-bottom">
           <p>© 2026 UNIUN. All rights reserved.</p>
           <div>
-            <a href="#privacy">Privacy Policy</a>
-            <a href="#terms">Terms of Service</a>
-            <a href="#cookies">Cookie Settings</a>
+            <a href="/support">Support</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/terms-of-service">Terms of Service</a>
+            <a href="/site-map">Site Map</a>
           </div>
         </div>
       </div>

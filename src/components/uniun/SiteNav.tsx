@@ -1,13 +1,13 @@
 const navLinks = [
-  { href: "#journey", label: "Product" },
-  { href: "#pillars", label: "Brahma Vishnu Shiv" },
-  { href: "#ownership", label: "Ownership" }
+  { href: "/#journey", label: "Product" },
+  { href: "/#pillars", label: "Brahma Vishnu Shiv" },
+  { href: "/#ownership", label: "Ownership" }
 ];
 
 export function SiteNav() {
   return (
     <header className="site-nav" aria-label="Primary">
-      <a className="brand" href="#top" aria-label="UNIUN home">
+      <a className="brand" href="/#top" aria-label="UNIUN home">
         <img className="brand-logo" src="/assets/uniun_logo.png" alt="" aria-hidden="true" />
         <span>UNIUN</span>
       </a>
@@ -18,7 +18,7 @@ export function SiteNav() {
           </a>
         ))}
       </nav>
-      <a className="nav-cta" href="#waitlist">
+      <a className="nav-cta" href="/#waitlist">
         Join waitlist
       </a>
     </header>
