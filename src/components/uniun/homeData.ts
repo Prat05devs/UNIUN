@@ -35,7 +35,7 @@ export type DownloadLink = {
 };
 
 export const productScreens: ProductScreen[] = [
-  { id: "feed", src: "/assets/screen-feed.jpeg", alt: "UNIUN feed screen" },
+  { id: "feed", src: "/assets/screen-feed.png", alt: "UNIUN feed screen" },
   { id: "drawer", src: "/assets/screen-drawer.jpeg", alt: "UNIUN side drawer screen" },
   { id: "thread", src: "/assets/screen-thread.jpeg", alt: "UNIUN thread screen" },
   { id: "graph", src: "/assets/screen-graph.jpeg", alt: "UNIUN graph screen" },

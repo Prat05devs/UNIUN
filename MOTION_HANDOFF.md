@@ -25,7 +25,7 @@ This prototype is a Next.js app-router project using Yarn. It covers the Phase 1
 
 ## Asset Map
 
-- `public/assets/screen-feed.jpeg`: Feed
+- `public/assets/screen-feed.png`: Feed
 - `public/assets/screen-drawer.jpeg`: Side drawer, channels, DMs, AI entry
 - `public/assets/screen-graph.jpeg`: Graph view
 - `public/assets/screen-shiv.png`: Shiv assistant
