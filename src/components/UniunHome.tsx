@@ -13,14 +13,11 @@ import { NoteFormsSection } from "./uniun/sections/NoteFormsSection";
 import { OwnershipSection } from "./uniun/sections/OwnershipSection";
 import { PillarsSection } from "./uniun/sections/PillarsSection";
 import { ProductJourneySection } from "./uniun/sections/ProductJourneySection";
-import { ThoughtMapSection } from "./uniun/sections/ThoughtMapSection";
 import { useUniunHomeMotion } from "./uniun/useUniunHomeMotion";
 
 export function UniunHome() {
   const [activeScreen, setActiveScreen] = useState(productScreens[0].id);
   const rootRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<HTMLElement>(null);
-  const mapPinRef = useRef<HTMLDivElement>(null);
   const journeyRef = useRef<HTMLElement>(null);
   const journeyPinRef = useRef<HTMLDivElement>(null);
   const activeScreenRef = useRef(activeScreen);
@@ -32,8 +29,6 @@ export function UniunHome() {
 
   useUniunHomeMotion({
     rootRef,
-    mapRef,
-    mapPinRef,
     journeyRef,
     journeyPinRef,
     activeScreenRef,
@@ -48,7 +43,6 @@ export function UniunHome() {
       <main id="top">
         <HeroSection />
         <NoteFormsSection />
-        <ThoughtMapSection mapRef={mapRef} mapPinRef={mapPinRef} />
         <ProductJourneySection
           activeScreen={activeScreen}
           journeyRef={journeyRef}

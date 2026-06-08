@@ -10,8 +10,6 @@ type MotionRef<T> = RefObject<T | null>;
 
 type UseUniunHomeMotionParams = {
   rootRef: MotionRef<HTMLDivElement>;
-  mapRef: MotionRef<HTMLElement>;
-  mapPinRef: MotionRef<HTMLDivElement>;
   journeyRef: MotionRef<HTMLElement>;
   journeyPinRef: MotionRef<HTMLDivElement>;
   activeScreenRef: { current: string };
@@ -21,8 +19,6 @@ type UseUniunHomeMotionParams = {
 
 export function useUniunHomeMotion({
   rootRef,
-  mapRef,
-  mapPinRef,
   journeyRef,
   journeyPinRef,
   activeScreenRef,
@@ -30,11 +26,9 @@ export function useUniunHomeMotion({
   prefersReducedMotion
 }: UseUniunHomeMotionParams) {
   useEffect(() => {
-    const map = mapRef.current;
-    const mapPin = mapPinRef.current;
     const journey = journeyRef.current;
     const journeyPin = journeyPinRef.current;
-    if (!map || !mapPin || !journey || !journeyPin) return;
+    if (!journey || !journeyPin) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -68,55 +62,6 @@ export function useUniunHomeMotion({
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) return;
-
-      media.add("(min-width: 1024px)", () => {
-        const paths = gsap.utils.toArray<SVGPathElement>(".thought-map-lines path");
-        paths.forEach((path) => {
-          const length = path.getTotalLength();
-          path.style.strokeDasharray = `${length}`;
-          path.style.strokeDashoffset = `${length}`;
-        });
-
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: map,
-              start: "top top",
-              end: "bottom bottom",
-              scrub: 1,
-              pin: mapPin,
-              anticipatePin: 1
-            }
-          })
-          .fromTo(
-            ".thought-map-note",
-            { autoAlpha: 0, y: 34, scale: 0.86 },
-            { autoAlpha: 1, y: 0, scale: 1, duration: 0.2 },
-            0.06
-          )
-          .to(".thought-map-note", { scale: 0.78, y: -36, duration: 0.28 }, 0.25)
-          .fromTo(
-            ".thought-map-rings span",
-            { autoAlpha: 0, scale: 0.82 },
-            { autoAlpha: 1, scale: 1, stagger: 0.04, duration: 0.34 },
-            0.22
-          )
-          .to(paths, { strokeDashoffset: 0, stagger: 0.025, duration: 0.34 }, 0.3)
-          .fromTo(
-            ".thought-map-field .network-node",
-            { autoAlpha: 0, scale: 0.35 },
-            { autoAlpha: 1, scale: 1, stagger: 0.045, duration: 0.35 },
-            0.34
-          )
-          .fromTo(
-            ".thought-map-signal-board",
-            { autoAlpha: 0, x: 28 },
-            { autoAlpha: 1, x: 0, duration: 0.24 },
-            0.5
-          )
-          .to(".thought-map-grid", { y: 86, opacity: 0.38, duration: 0.8 }, 0)
-          .to(".thought-map-glow", { scale: 1.18, opacity: 0.68, duration: 0.8 }, 0);
-      });
 
       media.add("(min-width: 1024px)", () => {
         ScrollTrigger.create({
@@ -249,8 +194,6 @@ export function useUniunHomeMotion({
     };
   }, [
     activeScreenRef,
-    mapPinRef,
-    mapRef,
     journeyPinRef,
     journeyRef,
     prefersReducedMotion,

@@ -28,6 +28,6 @@ This prototype is a Next.js app-router project using Yarn. It covers the Phase 1
 - `public/assets/screen-feed.jpeg`: Feed
 - `public/assets/screen-drawer.jpeg`: Side drawer, channels, DMs, AI entry
 - `public/assets/screen-graph.jpeg`: Graph view
-- `public/assets/screen-shiv.jpeg`: Shiv assistant
+- `public/assets/screen-shiv.png`: Shiv assistant
 - `public/assets/screen-tree.jpeg`: Conversation tree
 - `public/assets/screen-thread.jpeg`: Thread and references

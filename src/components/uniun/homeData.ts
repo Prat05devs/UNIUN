@@ -39,7 +39,7 @@ export const productScreens: ProductScreen[] = [
   { id: "drawer", src: "/assets/screen-drawer.jpeg", alt: "UNIUN side drawer screen" },
   { id: "thread", src: "/assets/screen-thread.jpeg", alt: "UNIUN thread screen" },
   { id: "graph", src: "/assets/screen-graph.jpeg", alt: "UNIUN graph screen" },
-  { id: "shiv", src: "/assets/screen-shiv.jpeg", alt: "UNIUN Shiv assistant screen" },
+  { id: "shiv", src: "/assets/screen-shiv.png", alt: "UNIUN Shiv assistant screen" },
   { id: "tree", src: "/assets/screen-tree.jpeg", alt: "UNIUN conversation tree screen" }
 ];
 
