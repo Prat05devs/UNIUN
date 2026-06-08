@@ -12,7 +12,7 @@ import { SiteFooter } from "../../components/uniun/SiteFooter";
 import { SiteNav } from "../../components/uniun/SiteNav";
 
 const supportEmail = "pranavpandey1998developer@gmail.com";
-const displaySupportEmail = "hello@uniun.app";
+const displaySupportEmail = "pranavpandey1998developer@gmail.com";
 const lastUpdated = "June 6, 2026";
 
 const legalLinks = [
@@ -23,99 +23,77 @@ const legalLinks = [
 
 const policySections = [
   {
-    id: "overview",
-    title: "1. Overview",
+    id: "what-we-store-locally",
+    title: "1. What We Store Locally",
     body: [
-      "UNIUN is designed as a notes, conversations, graph, and AI workspace. This Privacy Policy explains what information may be collected, how it may be used, and the choices available to you when you use UNIUN.",
-      "We try to keep the product local-first and privacy-aware. Some features may work on your device, while others may require account, sync, support, analytics, or AI processing services."
+      "UNIUN stores your notes, profile, saved items, channel messages, and settings directly on your device. This data is not sent to any server controlled by UNIUN."
     ]
   },
   {
-    id: "information-we-collect",
-    title: "2. Information We Collect",
+    id: "what-gets-shared-publicly",
+    title: "2. What Gets Shared Publicly",
     body: [
-      "Account and contact information may include your name, email address, support messages, and other details you choose to share with us.",
-      "App and device information may include device type, operating system version, app version, crash logs, diagnostics, and basic usage signals that help us understand whether UNIUN is working as expected.",
-      "User content may include notes, messages, threads, graph relationships, channels, and AI prompts or responses when you use features that store, sync, or process this content."
+      "When you publish a note or send a message in a public channel, that content is broadcast to Nostr relays. Nostr is an open public protocol — once published, your notes may be visible to anyone connected to those relays. UNIUN does not control third-party relays."
     ]
   },
   {
-    id: "how-we-use-information",
-    title: "3. How We Use Information",
+    id: "your-identity-and-keys",
+    title: "3. Your Identity & Keys",
     body: [
-      "We use information to provide and improve UNIUN, respond to support requests, maintain app reliability, investigate bugs, protect the service, and develop product features.",
-      "If AI features are enabled, relevant content or prompts may be processed to generate responses, organize context, or help you search and reason across your workspace."
+      "Your identity is a cryptographic key pair. Your public key is visible to others on the Nostr network. Your private key (nsec) is stored exclusively in your device's secure system keychain (iOS Keychain / Android Keystore). UNIUN never transmits your private key to any server."
     ]
   },
   {
-    id: "storage-and-processing",
-    title: "4. Storage and Processing",
+    id: "local-ai-shiv",
+    title: "4. Local AI (Shiv)",
     body: [
-      "UNIUN may store some information locally on your device. If sync, account, backup, collaboration, or AI features are enabled, selected information may be transmitted to servers or service providers needed to operate those features.",
-      "We aim to limit processing to what is needed for product functionality, support, security, and improvement."
+      "The Shiv AI assistant runs entirely on your device. It accesses only your locally saved notes. No note content is sent to any external AI service or API."
     ]
   },
   {
-    id: "sharing",
-    title: "5. Sharing Information",
+    id: "media-and-blossom-servers",
+    title: "5. Media & Blossom Servers",
     body: [
-      "We do not sell your personal information. We may share information with service providers that help us operate, host, analyze, secure, or support UNIUN.",
-      "We may also disclose information if required by law, to protect rights and safety, or as part of a business transfer such as a merger, acquisition, or reorganization."
+      "If you attach images or media, they may be uploaded to a Blossom content server of your choice. UNIUN does not operate Blossom servers. Content uploaded there may be publicly accessible by design of the protocol."
     ]
   },
   {
-    id: "your-choices",
-    title: "6. Your Choices",
+    id: "direct-messages",
+    title: "6. Direct Messages",
     body: [
-      "You can contact us to request access, correction, deletion, or export of information associated with your account or support history.",
-      "You may be able to control app permissions, notifications, analytics, and local storage through your device settings or UNIUN settings as those controls become available."
+      "DMs are end-to-end encrypted using the Nostr NIP-17 standard. Only the intended recipient can read the message content. Message routing metadata may be visible to relays."
     ]
   },
   {
-    id: "security",
-    title: "7. Security",
+    id: "your-control",
+    title: "7. Your Control",
     body: [
-      "We use reasonable technical and organizational safeguards designed to protect information. No system is perfectly secure, so we cannot guarantee absolute protection.",
-      "Please keep your device, account, keys, and recovery methods protected, especially when using local-first or bring-your-own-backend workflows."
-    ]
-  },
-  {
-    id: "children",
-    title: "8. Children",
-    body: [
-      "UNIUN is not intended for children under 13. If you believe a child has provided personal information, contact us and we will review the request."
-    ]
-  },
-  {
-    id: "changes",
-    title: "9. Changes to This Policy",
-    body: [
-      "We may update this Privacy Policy as UNIUN changes. When we make meaningful changes, we will update the date on this page and may provide additional notice when appropriate."
+      "You can delete your local data at any time from Settings. Because Nostr is a public protocol, notes already published to relays cannot be retracted — this is an intentional property of the network, not a limitation of the app."
     ]
   },
   {
     id: "contact",
-    title: "10. Contact Us",
+    title: "8. Contact",
     body: [
-      `For privacy questions, app support, deletion requests, or data requests, contact us at ${displaySupportEmail}.`
+      `For privacy questions: ${displaySupportEmail}`
     ]
   }
 ];
 
 const summaryCards = [
   {
-    title: "Local-first by design",
-    body: "Some workspace data may stay on your device unless you enable features that need syncing or processing.",
+    title: "Your data stays on your device",
+    body: "Notes, profile, saved items, channel messages, and settings are stored locally — not on any server controlled by UNIUN.",
     icon: Smartphone
   },
   {
-    title: "No sale of data",
-    body: "UNIUN does not sell personal information.",
+    title: "Your keys, your control",
+    body: "Your private key (nsec) lives only in your device's secure system keychain. UNIUN never transmits it to any server.",
     icon: ShieldCheck
   },
   {
-    title: "AI with context",
-    body: "AI features may process selected notes, prompts, or workspace context to generate useful responses.",
+    title: "On-device AI",
+    body: "The Shiv AI assistant runs entirely on your device and accesses only your locally saved notes. No content leaves your device.",
     icon: Sparkles
   }
 ];
@@ -140,18 +118,18 @@ export default function PrivacyPolicyPage() {
             <p className="eyebrow">Legal notes</p>
             <h1 id="privacy-title">Privacy Policy</h1>
             <p>
-              How UNIUN handles app data, notes, support requests, diagnostics,
-              and AI-related processing.
+              UNIUN is built on transparency. Your data stays on your device.
+              Below is everything you need to know — no legal jargon.
             </p>
             <span>Last updated: {lastUpdated}</span>
           </div>
 
           <div className="legal-hero-card" aria-label="Privacy summary">
             <LockKeyhole aria-hidden="true" />
-            <strong>Your workspace deserves careful handling.</strong>
+            <strong>Your data stays on your device.</strong>
             <p>
-              UNIUN is being built around ownership, context, and user control.
-              This page explains the practical privacy commitments behind that.
+              UNIUN is local-first and built around ownership and user control.
+              This page explains exactly what stays local and what gets shared.
             </p>
           </div>
         </section>
@@ -191,9 +169,8 @@ export default function PrivacyPolicyPage() {
             <div className="legal-document-intro">
               <h2>Privacy Policy</h2>
               <p>
-                This policy describes UNIUN&apos;s approach to privacy for the
-                website, app, and related support channels. It is written to be
-                readable, but it should not be treated as legal advice.
+                UNIUN is built on transparency. Your data stays on your device.
+                Below is everything you need to know — no legal jargon.
               </p>
             </div>
 

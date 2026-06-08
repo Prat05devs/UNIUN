@@ -16,7 +16,7 @@ import { SiteNav } from "../../components/uniun/SiteNav";
 import { SupportContactForm } from "../../components/uniun/support/SupportContactForm";
 
 const supportEmail = "pranavpandey1998developer@gmail.com";
-const displaySupportEmail = "hello@uniun.app";
+const displaySupportEmail = "pranavpandey1998developer@gmail.com";
 
 const supportTopics = [
   {
