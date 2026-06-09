@@ -99,13 +99,13 @@ export const pillars: Pillar[] = [
   {
     name: "Brahma",
     action: "Create",
-    body: "Write notes and connect new ideas.",
+    body: "Write notes and link new ideas.",
     image: "./brahma.svg"
   },
   {
     name: "Vishnu",
-    action: "Organize",
-    body: "Keep feeds, channels, DMs, and groups structured.",
+    action: "Share",
+    body: "Share your notes across the network and discover what others are thinking.",
     image: "./vishnu.svg"
   },
   {

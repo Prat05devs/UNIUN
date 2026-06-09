@@ -8,7 +8,7 @@ const siteUrl =
 const title = "UNIUN — Your Notes. Your Network. Your AI.";
 
 const description =
-  "Write notes, connect conversations, organize groups, and ask your own AI from your knowledge — privately, locally, and in your control.";
+  "Write notes, connect conversations, share and discover ideas, and ask your own AI from your knowledge — privately, locally, and in your control.";
 
 const ogDescription =
   "A note-sharing network where ideas become feed, thread, graph, and AI context. Built for ownership, clarity, and knowledge.";

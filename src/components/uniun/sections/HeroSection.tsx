@@ -14,7 +14,7 @@ export function HeroSection() {
           <p className="eyebrow">A living network for thought</p>
           <h1 id="hero-title">Your notes. Your network. Your AI.</h1>
           <p>
-            UNIUN helps you write, connect, organize, and ask from your own
+            UNIUN helps you write, connect, share, and ask from your own
             knowledge graph - privately, locally, and in your control.
           </p>
 

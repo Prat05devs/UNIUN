@@ -10,8 +10,8 @@ export function PillarsSection() {
     >
       <SectionHeading
         eyebrow="Built around three simple actions"
-        title="Create. Organize. Reflect."
-        body="Inspired by creation, preservation, and reflection - designed for everyone."
+        title="Create. Share. Reflect."
+        body="Inspired by creation, sharing, and reflection - designed for everyone."
         id="pillars-title"
       />
 
