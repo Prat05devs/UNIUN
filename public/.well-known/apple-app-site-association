@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "XCM437ST6L.in.uniun.app",
+        "paths": ["/channel/*", "/private/*", "/user/*"]
+      }
+    ]
+  }
+}
