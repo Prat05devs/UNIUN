@@ -111,7 +111,7 @@ export const pillars: Pillar[] = [
   {
     name: "Shiv",
     action: "Reflect",
-    body: "Ask questions from your own connected knowledge.",
+    body: "Ask questions from your own connected knowledge graph.",
     image: "./shiva.svg"
   }
 ];
