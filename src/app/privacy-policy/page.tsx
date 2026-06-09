@@ -21,7 +21,14 @@ const legalLinks = [
   { href: "#terms", label: "Terms of Service" }
 ];
 
-const policySections = [
+type PolicySection = {
+  id: string;
+  title: string;
+  body: string[];
+  link?: { href: string; label: string };
+};
+
+const policySections: PolicySection[] = [
   {
     id: "what-we-store-locally",
     title: "1. What We Store Locally",
@@ -68,12 +75,22 @@ const policySections = [
     id: "your-control",
     title: "7. Your Control",
     body: [
-      "You can delete your local data at any time from Settings. Because Nostr is a public protocol, notes already published to relays cannot be retracted — this is an intentional property of the network, not a limitation of the app."
+      "You can delete your local data at any time from Settings. Because Nostr is a public protocol, content already published to relays is distributed across many independent nodes — see Section 8 for how to request its deletion across the network."
     ]
   },
   {
+    id: "deleting-your-data",
+    title: "8. Deleting Your Data",
+    body: [
+      "UNIUN is a decentralized application built on Nostr, so your published data does not live on a single server we can wipe on your behalf. It is replicated across many independent relays (nodes) operated by different people around the world.",
+      "To delete that data everywhere it exists, Nostr provides a standard called NIP-62 \"Request to Vanish.\" You sign a special event (kind 62) with your key that instructs relays to permanently delete all events associated with your public key. Compliant relays honor the request and remove your data, and may forward the request onward to other relays.",
+      "Because relays are independently operated, deletion depends on each relay honoring the protocol. UNIUN cannot force a third-party relay to comply, but the NIP-62 request is the network-wide mechanism for asking every node holding your data to remove it. You can read the full specification here:"
+    ],
+    link: { href: "https://nips.nostr.com/62", label: "Nostr NIP-62 — Request to Vanish" }
+  },
+  {
     id: "contact",
-    title: "8. Contact",
+    title: "9. Contact",
     body: [
       `For privacy questions: ${displaySupportEmail}`
     ]
@@ -180,6 +197,17 @@ export default function PrivacyPolicyPage() {
                 {section.body.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
+                {section.link ? (
+                  <p>
+                    <a
+                      href={section.link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {section.link.label}
+                    </a>
+                  </p>
+                ) : null}
               </section>
             ))}
 
