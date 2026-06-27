@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UNIUN — V3 · Closest to current</title>
+<style>
+  :root{
+    --ink:#f7f8fb;--muted:#b5bdc8;--charcoal:#080b10;--night:#05070b;
+    --paper:#f8fafc;--text:#11151c;--text-muted:#5a6473;
+    --blue:#2f7df6;--green:#29b68b;--orange:#e7a147;--radius:10px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+    background:var(--charcoal);color:var(--ink);overflow-x:clip;-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:-3;background:
+    radial-gradient(circle at 18% 14%,rgba(41,182,139,.10),transparent 28rem),
+    radial-gradient(circle at 82% 16%,rgba(231,161,71,.10),transparent 30rem),
+    radial-gradient(circle at 50% 40%,rgba(47,125,246,.13),transparent 38rem),
+    linear-gradient(180deg,#050609,var(--charcoal) 54%,#0e1117)}
+  a{color:inherit;text-decoration:none}
+  .eyebrow{margin:0 0 16px;color:var(--blue);font-size:.78rem;font-weight:760;letter-spacing:.16em;text-transform:uppercase}
+  h1{font-size:clamp(3rem,7.2vw,6.2rem);line-height:.92;letter-spacing:-.02em;margin:0 0 22px;text-wrap:balance;color:#fff}
+  h2{font-size:clamp(2rem,4.4vw,3.8rem);line-height:1.02;letter-spacing:-.02em;margin:0 0 16px;text-wrap:balance;color:#fff}
+  h3{font-size:clamp(1.2rem,1.8vw,1.6rem);line-height:1.08;margin:0 0 10px}
+  p{font-size:clamp(1rem,1.25vw,1.14rem);line-height:1.6;margin:0 0 16px;color:var(--muted)}
+  strong{color:#fff}
+  .wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(20px,6vw,88px)}
+  section{padding-block:clamp(74px,10vw,124px);position:relative}
+  .lede{font-size:clamp(1.02rem,1.5vw,1.3rem);line-height:1.55;max-width:620px;color:rgba(247,248,251,.78)}
+  .btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 20px;border-radius:999px;font-weight:760;font-size:.96rem;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;backdrop-filter:blur(14px);transition:transform .18s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.primary{background:var(--blue);border-color:transparent;box-shadow:0 14px 40px rgba(47,125,246,.34)}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+
+  .nav{position:fixed;top:18px;left:clamp(16px,4.5vw,76px);right:clamp(16px,4.5vw,76px);z-index:30;display:flex;align-items:center;justify-content:space-between;min-height:58px;padding:8px 10px 8px 18px;border:1px solid rgba(17,21,28,.1);border-radius:999px;background:rgba(248,250,252,.9);color:var(--text);backdrop-filter:blur(22px);box-shadow:0 18px 60px rgba(0,0,0,.22)}
+  .nav .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+  .nav .brand img{width:28px;height:28px}
+  .nav-links{display:flex;gap:4px}
+  .nav-links a{padding:8px 12px;border-radius:999px;color:rgba(17,21,28,.62);font-size:.86rem;font-weight:680}
+  .nav-cta{min-height:40px;display:inline-flex;align-items:center;padding:0 16px;border-radius:999px;background:var(--blue);color:#fff;font-weight:760;font-size:.88rem}
+
+  .light{background:linear-gradient(180deg,var(--paper),#fff 58%,#eef6ff);color:var(--text)}
+  .light h2,.light h3{color:var(--text)}
+  .light p{color:var(--text-muted)}
+  .light .eyebrow{color:var(--blue)}
+
+  .phone{position:relative;width:min(70vw,280px);aspect-ratio:735/1600;padding:9px;border:1px solid rgba(255,255,255,.2);border-radius:34px;background:linear-gradient(145deg,rgba(255,255,255,.26),rgba(255,255,255,.05)),#05070b;box-shadow:0 30px 90px rgba(0,0,0,.42),0 0 60px rgba(47,125,246,.18)}
+  .phone img{width:100%;height:100%;object-fit:cover;border-radius:26px;display:block;background:#fff}
+  .phone .notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:30%;height:4.4%;border-radius:999px;background:#000;z-index:2}
+
+  /* hero */
+  .hero{min-height:100svh;display:grid;align-items:center;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(28px,5vw,68px);align-items:center}
+  .hero::after{content:"";position:absolute;left:65%;top:48%;width:min(58vw,620px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;z-index:-1;filter:blur(34px);opacity:.5;background:radial-gradient(circle,rgba(47,125,246,.22),transparent 62%)}
+  .hero .phone{justify-self:center}
+
+  /* note forms (light) */
+  .forms{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+  .fcard{padding:24px;border-radius:var(--radius);border:1px solid rgba(17,21,28,.1);background:#fff;box-shadow:0 16px 50px rgba(17,21,28,.06);min-height:140px;display:grid;align-content:space-between}
+  .fcard .num{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:rgba(47,125,246,.1);color:var(--blue);font-weight:800;font-size:.82rem}
+  .fcard h3{color:var(--text);font-size:1.18rem;margin:0 0 6px}
+  .fcard p{margin:0;font-size:.94rem;color:var(--text-muted)}
+
+  /* product journey — phone left, steps right */
+  .journey{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(30px,5vw,76px);align-items:center;margin-top:42px}
+  .journey .phone{justify-self:center}
+  .jsteps{display:grid;gap:12px}
+  .jstep{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:18px 20px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02))}
+  .jstep .n{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.16);color:#fff;font-weight:800;font-size:.8rem;align-self:start}
+  .jstep span{color:var(--blue);font-size:.72rem;font-weight:820;letter-spacing:.12em;text-transform:uppercase}
+  .jstep h3{color:#fff;font-size:1.18rem;margin:4px 0 4px}
+  .jstep p{margin:0;font-size:.95rem;color:rgba(247,248,251,.66)}
+
+  /* pillars (light) */
+  .trinity{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:46px}
+  .pillar{padding:clamp(26px,3vw,40px);border:1px solid rgba(17,21,28,.1);border-radius:var(--radius);background:#fff;box-shadow:0 16px 50px rgba(17,21,28,.06);position:relative;overflow:hidden;min-height:280px}
+  .pillar::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--blue)}
+  .pillar:nth-child(2)::before{background:var(--green)}.pillar:nth-child(3)::before{background:var(--orange)}
+  .pillar img{width:54px;height:54px;margin-bottom:20px;object-fit:contain}
+  .pillar .role{color:var(--blue);font-size:.72rem;font-weight:820;letter-spacing:.14em;text-transform:uppercase}
+  .pillar:nth-child(2) .role{color:var(--green)}.pillar:nth-child(3) .role{color:var(--orange)}
+  .pillar h3{color:var(--text);margin:8px 0 10px;font-size:1.42rem}
+  .pillar p{color:var(--text-muted);font-size:.98rem;margin:0 0 14px}
+  .pillar .feats{display:flex;flex-wrap:wrap;gap:6px}
+  .pillar .feats span{font-size:.78rem;font-weight:700;color:rgba(17,21,28,.66);padding:5px 10px;border-radius:999px;background:rgba(47,125,246,.07)}
+
+  /* ai section (dark) */
+  .ai-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(32px,5vw,72px);align-items:center}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .chips span{display:inline-flex;align-items:center;min-height:42px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:rgba(255,255,255,.84);font-size:.9rem;font-weight:720}
+  .models{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .models span{display:inline-flex;align-items:center;min-height:36px;padding:0 14px;border-radius:8px;border:1px solid rgba(41,182,139,.3);background:rgba(41,182,139,.08);color:#bfeedd;font-size:.82rem;font-weight:740}
+
+  /* ownership (light) */
+  .own-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:42px}
+  .own-grid article{min-height:118px;display:grid;align-content:space-between;padding:20px;border-radius:var(--radius);border:1px solid rgba(17,21,28,.1);background:#fff;font-weight:740;color:var(--text);font-size:1.05rem;box-shadow:0 14px 40px rgba(17,21,28,.05);border-top:3px solid var(--blue)}
+  .own-grid article:nth-child(3n+2){border-top-color:var(--green)}
+  .own-grid article:nth-child(3n){border-top-color:var(--orange)}
+
+  /* final */
+  .final{text-align:center}
+  .final h2{font-size:clamp(2.4rem,5vw,4.2rem)}
+  .final .actions{justify-content:center}.final .lede{margin:0 auto}
+  .final-preview{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:860px;margin:42px auto 0}
+  .final-preview article{padding:20px;border-radius:var(--radius);border:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));text-align:left;min-height:130px;display:grid;align-content:space-between}
+  .final-preview span{color:var(--blue);font-weight:820;font-size:.74rem;letter-spacing:.14em}
+  .final-preview strong{color:#fff;font-size:1.1rem}
+  .final-preview p{margin:0;font-size:.92rem;color:rgba(247,248,251,.64)}
+
+  .vbadge{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:6px;padding:7px 8px;border-radius:999px;background:rgba(8,11,16,.82);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(16px);box-shadow:0 14px 40px rgba(0,0,0,.4);font-size:.82rem}
+  .vbadge a{padding:6px 13px;border-radius:999px;color:rgba(255,255,255,.62);font-weight:720}
+  .vbadge a.on{background:var(--blue);color:#fff}
+  .vbadge .lbl{padding:6px 10px;color:rgba(255,255,255,.5);font-weight:700}
+
+  footer{padding:56px 0;border-top:1px solid rgba(255,255,255,.08);text-align:center}
+  footer p{color:rgba(255,255,255,.4);font-size:.9rem;margin:0}
+
+  @media(max-width:880px){
+    .hero-grid,.forms,.journey,.trinity,.ai-grid,.own-grid,.final-preview{grid-template-columns:1fr}
+    .own-grid{grid-template-columns:1fr 1fr}
+    .hero .phone{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="brand"><img src="../assets/uniun_logo.svg" alt="" onerror="this.style.display='none'"/>UNIUN</div>
+  <div class="nav-links"><a href="#journey">Product</a><a href="#pillars">Trinity</a><a href="#shiv">Shiv</a><a href="#own">Ownership</a></div>
+  <a class="nav-cta" href="#get">Join waitlist</a>
+</nav>
+
+<!-- HERO (closest to current copy, upgraded) -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">A living network for thought</p>
+      <h1>Your notes.<br/>Your network.<br/>Your AI.</h1>
+      <p class="lede">UNIUN helps you write, connect, share, and ask from your own knowledge graph —
+        privately, locally, and in your control. Decentralized on Nostr, with an
+        <strong>on-device AI</strong> that reasons over your own notes.</p>
+      <div class="actions"><a class="btn primary" href="#get">Join waitlist</a><a class="btn" href="#journey">See how it works</a></div>
+    </div>
+    <div class="phone"><span class="notch"></span><img src="../assets/screen-feed.png" alt="UNIUN" onerror="this.parentElement.style.display='none'"/></div>
+  </div>
+</header>
+
+<!-- NOTE FORMS (light) -->
+<section class="light" id="forms">
+  <div class="wrap">
+    <p class="eyebrow">A note is not just a note</p>
+    <h2>One note can become anything.</h2>
+    <p style="max-width:640px">One thought can become a message, a post, a thread, a graph node, a channel update, or context for Shiv — without losing where it came from.</p>
+    <div class="forms">
+      <div class="fcard"><div class="num">01</div><div><h3>Public Note</h3><p>Share a thought without losing where it came from.</p></div></div>
+      <div class="fcard"><div class="num">02</div><div><h3>Thread</h3><p>Follow replies and references back to source.</p></div></div>
+      <div class="fcard"><div class="num">03</div><div><h3>Graph Node</h3><p>See ideas as a map, not a timeline that disappears.</p></div></div>
+      <div class="fcard"><div class="num">04</div><div><h3>Channel Post</h3><p>Organize people and conversations around real work.</p></div></div>
+      <div class="fcard"><div class="num">05</div><div><h3>Encrypted DM</h3><p>End-to-end, one to one — only the recipient visible.</p></div></div>
+      <div class="fcard"><div class="num">06</div><div><h3>AI Context</h3><p>Ask from the knowledge you created and saved.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT JOURNEY -->
+<section id="journey">
+  <div class="wrap">
+    <p class="eyebrow">From thought to network</p>
+    <h2>The product changes as the story grows.</h2>
+    <p class="lede">Move from feed to channels, threads, graph, and Shiv without losing context.</p>
+    <div class="journey">
+      <div class="phone"><span class="notch"></span><img src="../assets/screen-graph.jpeg" alt="UNIUN screens" onerror="this.parentElement.style.display='none'"/></div>
+      <div class="jsteps">
+        <div class="jstep"><div class="n">01</div><div><span>Feed</span><h3>See notes like a living feed.</h3><p>Updates stay simple, readable, and connected to people — in time order, not algorithm order.</p></div></div>
+        <div class="jstep"><div class="n">02</div><div><span>Channels</span><h3>Public and private spaces.</h3><p>Channels, saved notes, group rooms, and E2E-encrypted DMs stay easy to move through.</p></div></div>
+        <div class="jstep"><div class="n">03</div><div><span>Threads</span><h3>Follow every idea to its source.</h3><p>The story doesn’t vanish when a conversation moves forward — and you can ask the thread itself.</p></div></div>
+        <div class="jstep"><div class="n">04</div><div><span>Graph</span><h3>Watch your knowledge connect.</h3><p>Saved, own, and draft notes form a map of what matters — your Brahman.</p></div></div>
+        <div class="jstep"><div class="n">05</div><div><span>Shiv</span><h3>Ask your own notes.</h3><p>An on-device AI that understands the connected context behind your notes.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS (light) -->
+<section class="light" id="pillars">
+  <div class="wrap">
+    <p class="eyebrow">Built around three simple actions</p>
+    <h2>Create. Share. Reflect.</h2>
+    <p style="max-width:620px">Inspired by creation, sharing, and reflection — designed for everyone.</p>
+    <div class="trinity">
+      <div class="pillar"><img src="../brahma.svg" alt="Brahma" onerror="this.style.display='none'"/><div class="role">Brahma</div><h3>Create</h3><p>Write notes and link new ideas — each reference becomes an edge in your graph.</p><div class="feats"><span>Notes</span><span>Connections</span><span>Graph canvas</span></div></div>
+      <div class="pillar"><img src="../vishnu.svg" alt="Vishnu" onerror="this.style.display='none'"/><div class="role">Vishnu</div><h3>Share</h3><p>Share your notes across the network and discover what others are thinking.</p><div class="feats"><span>Feed</span><span>Channels</span><span>Encrypted DMs</span></div></div>
+      <div class="pillar"><img src="../shiva.svg" alt="Shiv" onerror="this.style.display='none'"/><div class="role">Shiv</div><h3>Reflect</h3><p>Ask questions from your own connected knowledge graph — on your device.</p><div class="feats"><span>Shiv chat</span><span>Nataraj</span><span>Ganas</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI SECTION (dark) -->
+<section id="shiv">
+  <div class="wrap">
+    <div class="ai-grid">
+      <div>
+        <p class="eyebrow">Shiv — your context-aware assistant</p>
+        <h2>AI that understands your context.</h2>
+        <p>Shiv doesn’t start from a blank page. It works with the notes you create, save, and connect —
+          grounded in your own knowledge through GraphRAG, and running <strong>on your device</strong> by default.</p>
+        <div class="chips"><span>Ask from your notes</span><span>Summarize context</span><span>Find connections</span><span>Branch follow-ups</span><span>Local-first AI</span></div>
+        <div class="models"><span>Qwen3 0.6B</span><span>DeepSeek R1 1.5B</span><span>Gemma 4 E2B / E4B</span><span>matched to your RAM</span></div>
+      </div>
+      <div class="phone"><span class="notch"></span><img src="../assets/screen-shiv.png" alt="Shiv" onerror="this.parentElement.style.display='none'"/></div>
+    </div>
+  </div>
+</section>
+
+<!-- OWNERSHIP (light) -->
+<section class="light" id="own">
+  <div class="wrap">
+    <p class="eyebrow">Built for ownership, not addiction</p>
+    <h2>Your notes stay yours.</h2>
+    <p style="max-width:620px">No forced feed. No unnecessary noise. No platform lock-in.</p>
+    <div class="own-grid">
+      <article>Offline-first</article>
+      <article>Open source</article>
+      <article>No forced algorithm</article>
+      <article>Notification-free</article>
+      <article>Add your own relay</article>
+      <article>Bring your own backend</article>
+      <article>You hold the keys</article>
+      <article>No platform lock-in</article>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final" id="get">
+  <div class="wrap">
+    <p class="eyebrow">Start with one note</p>
+    <h2>Start with one note.</h2>
+    <p class="lede">Build your network. Grow your knowledge. Ask your AI.</p>
+    <div class="actions"><a class="btn primary" href="#">Join waitlist</a><a class="btn" href="#">GitHub soon</a></div>
+    <div class="final-preview">
+      <article><span>01</span><strong>Write one note</strong><p>Capture a thought before it disappears.</p></article>
+      <article><span>02</span><strong>Connect the context</strong><p>Turn related notes into a living network.</p></article>
+      <article><span>03</span><strong>Ask Shiv</strong><p>Explore your own workspace with clarity.</p></article>
+    </div>
+  </div>
+</section>
+
+<footer><p>UNIUN — your notes, your network, your AI.</p></footer>
+
+<div class="vbadge">
+  <span class="lbl">Versions:</span>
+  <a href="v1-bold.html">1 · Tour</a>
+  <a href="v2-layered.html">2 · Benefits</a>
+  <a class="on" href="v3-selective.html">3 · Closest</a>
+</div>
+
+</body>
+</html>

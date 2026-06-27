@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>UNIUN — your decentralized second brain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<link rel="stylesheet" href="uniun-ds.css">
+<style>
+  /* page-local accents only — the rest comes from the design system */
+  .hero{padding-top:clamp(40px,6vw,76px);padding-bottom:clamp(56px,8vw,100px)}
+  .hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(28px,5vw,68px);align-items:center}
+  .hero-aura{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+  .hero-aura::before{content:"";position:absolute;right:6%;top:14%;width:min(48vw,520px);aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle,rgba(0,117,242,.12),transparent 62%);filter:blur(20px)}
+  .trust{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:26px;color:var(--text-muted);font-size:.85rem}
+  .trust span{display:inline-flex;align-items:center;gap:6px}
+  .trust .material-symbols-rounded{font-size:18px;color:var(--primary)}
+  .brandline{font-family:var(--font-display);font-size:clamp(1.4rem,2.5vw,2.05rem);color:var(--text-primary);font-weight:500;letter-spacing:-.01em;line-height:1.32;max-width:22ch}
+  .surface-sec{background:var(--surface);border-block:1px solid var(--border-subtle)}
+  .e2e{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;font-weight:600;color:var(--success);background:rgba(5,150,105,.08);border-radius:var(--radius-full);padding:5px 11px}
+  .e2e .material-symbols-rounded{font-size:16px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <span class="mark"><img src="../assets/uniun_logo.svg" alt="" onerror="this.style.display='none'"/></span>
+      <span class="word">UNIUN</span>
+    </a>
+    <div class="nav-links">
+      <a href="#vishnu">Feed</a>
+      <a href="#graph">Graph</a>
+      <a href="#shiv">Shiv AI</a>
+      <a href="#sovereign">Sovereignty</a>
+    </div>
+    <a class="btn btn-primary btn-sm" href="#get">Join waitlist</a>
+  </div>
+</nav>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-aura" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="section-label"><span class="material-symbols-rounded">hub</span>Decentralized · offline-first · on-device AI</span>
+      <h1 class="h-hero">Your decentralized<br/>second brain.</h1>
+      <p class="lead" style="margin-top:18px;max-width:46ch">
+        Capture notes, connect them into a knowledge graph, share on an open network, and ask an
+        AI that runs on your phone — <strong style="color:var(--text-primary);font-weight:600">not in someone else’s cloud</strong>.
+      </p>
+      <div class="eyrow" style="margin-top:28px">
+        <a class="btn btn-primary" href="#get"><span class="material-symbols-rounded">bolt</span>Join the waitlist</a>
+        <a class="btn btn-secondary" href="#vishnu">See how it works</a>
+      </div>
+      <div class="trust">
+        <span><span class="material-symbols-rounded">lan</span>Built on Nostr</span>
+        <span><span class="material-symbols-rounded">lock</span>MLS-encrypted</span>
+        <span><span class="material-symbols-rounded">vpn_key</span>Your keys, your data</span>
+      </div>
+    </div>
+
+    <!-- LIVE FEED SCREEN -->
+    <div class="split-media">
+      <div class="phone">
+        <span class="notch"></span>
+        <div class="screen">
+          <div class="scr-bar">
+            <span class="material-symbols-rounded">menu</span>
+            <div class="grp"><span class="material-symbols-rounded">qr_code_scanner</span><span class="avatar">P</span></div>
+          </div>
+          <div class="feedlist">
+            <div class="note">
+              <div class="note-head"><span class="avatar">S</span><span class="note-name">Sam</span><span class="note-meta">· 6m</span><span class="ch">#random</span></div>
+              <div class="note-body">Me: “I’ll sleep early tonight.” Also me at 2:17 AM: researching whether penguins have knees.</div>
+              <div class="note-actions"><span class="material-symbols-rounded">chat_bubble</span><span class="material-symbols-rounded">link</span><span class="material-symbols-rounded on">bookmark</span><span class="material-symbols-rounded">share</span></div>
+            </div>
+            <div class="note">
+              <div class="note-head"><span class="avatar">S</span><span class="note-name">Sam</span><span class="note-meta">· 7m</span><span class="ch">#tech</span></div>
+              <div class="note-body">AI is becoming less about writing prompts and more about building systems that solve problems…</div>
+              <div class="note-actions"><span class="material-symbols-rounded">chat_bubble</span><span class="material-symbols-rounded">link</span><span class="material-symbols-rounded">bookmark</span><span class="material-symbols-rounded">share</span></div>
+            </div>
+            <div class="note">
+              <div class="note-head"><span class="avatar">P</span><span class="note-name">Pranav</span><span class="note-meta">· 4d</span></div>
+              <div class="note-body">A note is the only primitive you need.</div>
+              <div class="note-actions"><span class="material-symbols-rounded">chat_bubble</span><span class="material-symbols-rounded">link</span><span class="material-symbols-rounded">bookmark</span><span class="material-symbols-rounded">share</span></div>
+            </div>
+          </div>
+          <div class="fnav">
+            <span class="fn active"><img src="../vishnu.svg" alt="Vishnu"/></span>
+            <span class="fn-center"><img src="../brahma.svg" alt="Brahma"/></span>
+            <span class="fn"><img src="../shiva.svg" alt="Shiv"/></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ONE PRIMITIVE -->
+<section id="product" class="surface-sec">
+  <div class="wrap">
+    <span class="section-label"><span class="material-symbols-rounded">note_stack</span>One primitive</span>
+    <h2 class="h2">It all starts with a note.</h2>
+    <p class="lead" style="margin-top:14px;max-width:54ch">A note is the atom of UNIUN. The same note becomes a feed post, a thread, a node in your graph, a channel message, a DM, or context for your AI — and it’s never lost.</p>
+    <div class="eyrow" style="margin-top:26px">
+      <span class="chip chip-tonal"><span class="material-symbols-rounded">forum</span>Feed post</span>
+      <span class="chip"><span class="material-symbols-rounded">account_tree</span>Thread</span>
+      <span class="chip"><span class="material-symbols-rounded">hub</span>Graph node</span>
+      <span class="chip"><span class="material-symbols-rounded">tag</span>Channel</span>
+      <span class="chip"><span class="material-symbols-rounded">lock</span>Encrypted DM</span>
+      <span class="chip"><span class="material-symbols-rounded">auto_awesome</span>AI context</span>
+    </div>
+  </div>
+</section>
+
+<!-- TRIMURTI -->
+<section>
+  <div class="wrap">
+    <span class="section-label"><span class="material-symbols-rounded">deployed_code</span>Brahma · Vishnu · Shiv</span>
+    <h2 class="h2">Create. Reflect. Transform.</h2>
+    <p class="lead" style="margin-top:14px;max-width:50ch">Three surfaces, one mind — named for the trinity that creates, sustains, and transforms.</p>
+    <div class="cols-3" style="margin-top:36px">
+      <div class="card pillar">
+        <div class="isq"><img src="../brahma.svg" alt="" onerror="this.parentElement.textContent='✦'"/></div>
+        <div class="role" style="margin-top:14px">Brahma · Create</div>
+        <h3 class="h3">Write &amp; connect</h3>
+        <p style="margin-top:6px">Author notes and build your knowledge graph on an interactive canvas. Every reference you draw is an edge.</p>
+      </div>
+      <div class="card pillar">
+        <div class="isq"><img src="../vishnu.svg" alt="" onerror="this.parentElement.textContent='✦'"/></div>
+        <div class="role" style="margin-top:14px">Vishnu · Reflect</div>
+        <h3 class="h3">Feed &amp; messages</h3>
+        <p style="margin-top:6px">Follow people in a time-ordered feed, join channels, and message end-to-end encrypted — the social side.</p>
+      </div>
+      <div class="card pillar">
+        <div class="isq"><img src="../shiva.svg" alt="" onerror="this.parentElement.textContent='✦'"/></div>
+        <div class="role" style="margin-top:14px">Shiv · Transform</div>
+        <h3 class="h3">Your on-device AI</h3>
+        <p style="margin-top:6px">Chat with your own notes, fuse ideas with Nataraj, and run autonomous Gana agents — all on your phone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISHNU: FEED, CHANNELS, MESSAGES -->
+<section id="vishnu" class="surface-sec">
+  <div class="wrap">
+    <span class="section-label"><span class="material-symbols-rounded">forum</span>Vishnu · the social layer</span>
+    <h2 class="h2">A feed in time, not an algorithm.</h2>
+    <p class="lead" style="margin-top:14px;max-width:56ch">Notes from the people you follow, in order — no ranking engine deciding what you think about. And because every message is just a note, channels and DMs behave exactly like your feed.</p>
+
+    <div class="cols-3" style="margin-top:32px">
+      <div class="card">
+        <div class="card-head"><div class="lhs"><span class="isq"><span class="material-symbols-rounded">tag</span></span><b style="font-weight:600;color:var(--text-primary)">Channels</b></div></div>
+        <p style="margin-top:12px">Public rooms organized by topic. Join by QR or channel id — the first event becomes the permanent room.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="lhs"><span class="isq"><span class="material-symbols-rounded">lock</span></span><b style="font-weight:600;color:var(--text-primary)">Private channels</b></div></div>
+        <p style="margin-top:12px">Invite-only group spaces, MLS-encrypted, with admin-approved membership and pending requests.</p>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="lhs"><span class="isq"><span class="material-symbols-rounded">alternate_email</span></span><b style="font-weight:600;color:var(--text-primary)">Direct messages</b></div></div>
+        <p style="margin-top:12px">One-to-one and end-to-end encrypted — only the recipient is ever visible on the relay.</p>
+      </div>
+    </div>
+
+    <div class="eyrow" style="margin-top:22px">
+      <span class="e2e"><span class="material-symbols-rounded">lock</span>End-to-end encrypted</span>
+      <span class="chip"><span class="material-symbols-rounded">account_tree</span>Threads, references on top</span>
+      <span class="chip"><span class="material-symbols-rounded">bookmark</span>Save &amp; follow notes</span>
+      <span class="chip"><span class="material-symbols-rounded">cell_tower</span>Add your own relay</span>
+    </div>
+  </div>
+</section>
+
+<!-- BRAHMA: GRAPH (live mono-blue screen) -->
+<section id="graph">
+  <div class="wrap split rev">
+    <div>
+      <span class="section-label"><span class="material-symbols-rounded">hub</span>Brahma · the graph</span>
+      <h2 class="h2">Your notes, as a graph.</h2>
+      <p class="lead" style="margin-top:14px">Every note is a node; every reference is an edge. Saved, your own, and draft notes form a living map you can pan, search, and build on — then scope your AI to any slice of it as a <strong style="color:var(--text-primary);font-weight:600">Manas</strong>.</p>
+      <div class="eyrow" style="margin-top:20px">
+        <span class="chip"><span class="material-symbols-rounded">grain</span>Force-graph canvas</span>
+        <span class="chip"><span class="material-symbols-rounded">layers</span>Scope to a Manas</span>
+        <span class="chip"><span class="material-symbols-rounded">edit_note</span>Compose on the graph</span>
+      </div>
+    </div>
+    <div class="split-media">
+      <div class="phone">
+        <span class="notch"></span>
+        <div class="screen">
+          <div class="scr-top">
+            <span class="material-symbols-rounded">menu</span>
+            <span class="scr-scope"><span class="material-symbols-rounded">layers</span>All notes</span>
+            <span class="material-symbols-rounded">search</span>
+          </div>
+          <div class="kg-legend">
+            <span><i style="background:var(--graph-saved)"></i>Saved</span>
+            <span><i style="background:var(--graph-own)"></i>Own</span>
+            <span><i style="background:var(--graph-draft)"></i>Draft</span>
+          </div>
+          <div class="kg">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M50 42 L26 22"/><path d="M50 42 L73 24"/><path d="M50 42 L16 62"/>
+              <path d="M50 42 L45 70"/><path d="M50 42 L80 60"/><path d="M26 22 L62 14"/><path d="M26 22 L16 62"/>
+            </svg>
+            <span class="kg-node saved focus" style="left:50%;top:42%;width:30px;height:30px"></span>
+            <span class="kg-node own"   style="left:26%;top:22%;width:20px;height:20px"></span>
+            <span class="kg-node draft" style="left:73%;top:24%;width:18px;height:18px"></span>
+            <span class="kg-node own"   style="left:16%;top:62%;width:18px;height:18px"></span>
+            <span class="kg-node saved" style="left:45%;top:70%;width:22px;height:22px"></span>
+            <span class="kg-node own"   style="left:80%;top:60%;width:16px;height:16px"></span>
+            <span class="kg-node tag"   style="left:62%;top:14%;width:11px;height:11px"></span>
+            <span class="kg-label" style="left:50%;top:42%;margin-top:19px">lets connect</span>
+            <span class="kg-label" style="left:26%;top:22%;margin-top:14px">writing a note</span>
+            <span class="kg-label" style="left:73%;top:24%;margin-top:13px">draft idea</span>
+            <span class="kg-label" style="left:16%;top:62%;margin-top:13px">new note</span>
+            <span class="kg-label" style="left:45%;top:70%;margin-top:15px">experiment</span>
+            <span class="kg-label" style="left:80%;top:60%;margin-top:12px">replying</span>
+            <span class="kg-label" style="left:62%;top:14%;margin-top:10px;color:var(--text-muted)">#tech</span>
+            <div class="kg-fab" style="bottom:16px"><span class="material-symbols-rounded">add</span></div>
+          </div>
+          <div class="kg-search"><span class="material-symbols-rounded">search</span>Search your graph…</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHIV: AI (live chat screen) -->
+<section id="shiv" class="surface-sec">
+  <div class="wrap split">
+    <div>
+      <span class="section-label"><span class="material-symbols-rounded">auto_awesome</span>Shiv · on-device AI</span>
+      <h2 class="h2">An AI that runs on your phone.</h2>
+      <p class="lead" style="margin-top:14px">Shiv answers from the notes you’ve created and saved — grounded in your own knowledge through GraphRAG. Pick a model matched to your phone’s RAM; your thoughts never leave the device.</p>
+      <div class="chiprow">
+        <span class="chip chip-tonal"><span class="material-symbols-rounded">graph_3</span>Grounded in your notes</span>
+        <span class="chip"><span class="material-symbols-rounded">account_tree</span>Branch into a tree</span>
+        <span class="chip"><span class="material-symbols-rounded">edit_note</span>Inline composer-chat</span>
+      </div>
+      <p class="muted" style="margin-top:22px;font-size:.85rem">On-device models, matched to your RAM:</p>
+      <div class="chiprow" style="margin-top:8px">
+        <span class="chip mono">Qwen3 0.6B</span>
+        <span class="chip mono">DeepSeek R1 1.5B</span>
+        <span class="chip mono">Gemma 4 E2B</span>
+        <span class="chip mono">Gemma 4 E4B</span>
+      </div>
+    </div>
+    <div class="split-media">
+      <div class="phone">
+        <span class="notch"></span>
+        <div class="screen">
+          <div class="scr-shiv-bar">
+            <span class="isq"><span class="material-symbols-rounded">auto_awesome</span></span>
+            <div><b>Shiv</b><small>All notes · on-device</small></div>
+          </div>
+          <div class="chat">
+            <div class="bubble me">who are you</div>
+            <div class="bubble shiv"><div class="shiv-tag"><span class="material-symbols-rounded">auto_awesome</span>Shiv</div>I’m Shiv — your on-device assistant. I answer from your own notes, grounded in your graph.</div>
+            <div class="bubble me">what was my idea about workflows?</div>
+            <div class="bubble shiv"><div class="shiv-tag"><span class="material-symbols-rounded">auto_awesome</span>Shiv</div>From your #tech note: “AI is less about prompts, more about building systems.” Want me to branch this into a new idea?</div>
+          </div>
+          <div class="sug"><span>Summarize this</span><span>Find connections</span><span>Branch ↗</span></div>
+          <div class="composer">
+            <span class="avatar">M</span>
+            <span class="ph">Ask Shiv anything…</span>
+            <span class="model">Qwen3</span>
+            <span class="send"><span class="material-symbols-rounded">arrow_upward</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NATARAJ -->
+<section id="nataraj">
+  <div class="wrap split rev">
+    <div>
+      <span class="section-label"><span class="material-symbols-rounded">style</span>Nataraj · idea fusion</span>
+      <h2 class="h2">Make new ideas from old ones.</h2>
+      <p class="lead" style="margin-top:14px">A swipe deck that fuses two or three of your own notes into a brand-new idea. Keep the ones that spark and publish them back into your graph as a draft — this is how new thought is made from what you already know.</p>
+      <div class="eyrow" style="margin-top:20px">
+        <span class="chip"><span class="material-symbols-rounded">swipe</span>Skip · Keep · Discuss</span>
+        <span class="chip"><span class="material-symbols-rounded">shuffle</span>Shuffle sources</span>
+      </div>
+    </div>
+    <div class="split-media">
+      <div class="card deck">
+        <span class="section-label muted" style="margin:0 0 12px">Sources</span>
+        <div class="refstack">
+          <div class="refnote">
+            <div class="rn-head"><span class="avatar" style="width:30px;height:30px">P</span><span class="rn-name">You</span><span class="rn-meta">· 4d</span></div>
+            <div class="rn-body">AI is less about good prompts and more about building systems that solve problems.</div>
+          </div>
+          <div class="refnote">
+            <div class="rn-head"><span class="avatar" style="width:30px;height:30px">P</span><span class="rn-name">You</span><span class="rn-meta">· 2w</span></div>
+            <div class="rn-body">Every saved note is a reusable building block — context I can compose from later.</div>
+          </div>
+        </div>
+        <div class="synth-mark"><span class="material-symbols-rounded">auto_awesome</span></div>
+        <div class="note" style="border:0;padding:0">
+          <div class="note-head" style="margin-bottom:8px">
+            <span class="isq" style="width:30px;height:30px;border-radius:9px"><span class="material-symbols-rounded" style="font-size:18px">auto_awesome</span></span>
+            <span class="note-name">New idea</span>
+            <span class="pill-draft" style="margin-left:auto"><span class="material-symbols-rounded" style="font-size:13px">bolt</span>Draft</span>
+          </div>
+          <div class="note-body" style="font-size:.95rem">A personal knowledge graph <em>is</em> a system for prompts: each saved note becomes a building block your AI composes from on demand.</div>
+        </div>
+        <div class="deck-actions">
+          <span class="icon-btn"><span class="material-symbols-rounded">close</span></span>
+          <span class="btn btn-primary"><span class="material-symbols-rounded">check</span>Keep</span>
+          <span class="btn btn-tinted">Discuss</span>
+          <span class="icon-btn"><span class="material-symbols-rounded">shuffle</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GANA -->
+<section id="gana" class="surface-sec">
+  <div class="wrap">
+    <span class="section-label"><span class="material-symbols-rounded">smart_toy</span>Gana · autonomous agents</span>
+    <h2 class="h2">Agents that work while you don’t.</h2>
+    <p class="lead" style="margin-top:14px;max-width:56ch">A Gana watches a surface, reasons over a Manas you assign it, and acts on its own — summarizing, curating, or publishing on a schedule. Your mind, reaching into the world without you in the loop.</p>
+    <div class="cols-2" style="margin-top:30px">
+      <div class="card">
+        <div class="card-head">
+          <div class="lhs"><span class="isq"><span class="material-symbols-rounded">summarize</span></span>
+            <div><b style="font-weight:600;color:var(--text-primary)">Daily digest</b><div class="muted" style="font-size:.82rem">Last run · 8:00 AM</div></div></div>
+          <span class="switch"></span>
+        </div>
+        <div class="gana-rows">
+          <div class="gana-row"><span class="material-symbols-rounded">visibility</span>Watches <b>#tech channel</b></div>
+          <div class="gana-row"><span class="material-symbols-rounded">layers</span>Reasons over <b>Work Manas</b></div>
+          <div class="gana-row"><span class="material-symbols-rounded">schedule</span>Every morning</div>
+          <div class="gana-row"><span class="material-symbols-rounded">send</span>Publishes to <b>your feed</b></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="lhs"><span class="isq"><span class="material-symbols-rounded">bookmark_add</span></span>
+            <div><b style="font-weight:600;color:var(--text-primary)">Saved curator</b><div class="muted" style="font-size:.82rem">Paused</div></div></div>
+          <span class="switch off"></span>
+        </div>
+        <div class="gana-rows">
+          <div class="gana-row"><span class="material-symbols-rounded">visibility</span>Watches <b>Saved notes</b></div>
+          <div class="gana-row"><span class="material-symbols-rounded">layers</span>Reasons over <b>Research Manas</b></div>
+          <div class="gana-row"><span class="material-symbols-rounded">bolt</span>When something new arrives</div>
+          <div class="gana-row"><span class="material-symbols-rounded">draft</span>Saves as a <b>draft</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOVEREIGNTY -->
+<section id="sovereign">
+  <div class="wrap">
+    <span class="section-label"><span class="material-symbols-rounded">shield_lock</span>Sovereignty by default</span>
+    <h2 class="h2">Notes are forever. You hold the keys.</h2>
+    <p class="lead" style="margin-top:14px;max-width:56ch">UNIUN never publishes a deletion — nothing erases a note from the network. No company sits between you and your data, and your identity is a keypair only you control.</p>
+
+    <div class="card" style="margin-top:26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--surface-low)">
+      <span class="material-symbols-rounded" style="color:var(--primary)">vpn_key</span>
+      <span class="muted" style="font-size:.85rem">Your avatar is your key</span>
+      <code class="mono" style="font-size:.9rem;color:var(--text-secondary)">npub1q…7f3kx</code>
+    </div>
+
+    <div class="cols-4" style="margin-top:18px">
+      <div class="sov"><span class="material-symbols-rounded">cloud_off</span><b>Offline-first</b><span>Works without a connection.</span></div>
+      <div class="sov"><span class="material-symbols-rounded">code</span><b>Open source</b><span>Auditable, no black box.</span></div>
+      <div class="sov"><span class="material-symbols-rounded">block</span><b>No algorithm</b><span>Time, not engagement.</span></div>
+      <div class="sov"><span class="material-symbols-rounded">history_toggle_off</span><b>No forced delete</b><span>Notes live on the network.</span></div>
+      <div class="sov"><span class="material-symbols-rounded">lock</span><b>MLS-encrypted</b><span>Private channels &amp; DMs.</span></div>
+      <div class="sov"><span class="material-symbols-rounded">cell_tower</span><b>Bring your relay</b><span>Run your own backend.</span></div>
+      <div class="sov"><span class="material-symbols-rounded">smartphone</span><b>On-device AI</b><span>Thoughts never leave.</span></div>
+      <div class="sov"><span class="material-symbols-rounded">notifications_off</span><b>Notification-free</b><span>Calm by design.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND MOMENT (Newsreader, used sparingly) -->
+<section class="surface-sec" style="text-align:center">
+  <div class="wrap" style="max-width:760px">
+    <p class="brandline" style="margin-inline:auto">“A copy of your mind is only as good as the thoughts you keep — so keep them in a place you own.”</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="get" style="text-align:center">
+  <div class="wrap" style="max-width:720px">
+    <span class="section-label" style="justify-content:center"><span class="material-symbols-rounded">edit_note</span>Start with one note</span>
+    <h2 class="h2">Build your network. Grow your knowledge.</h2>
+    <p class="lead" style="margin:14px auto 0;max-width:50ch">Write a note, connect the context, and ask Shiv. UNIUN is coming to Android, iPhone, and desktop.</p>
+    <div class="eyrow" style="justify-content:center;margin-top:28px">
+      <a class="btn btn-primary" href="#"><span class="material-symbols-rounded">bolt</span>Join the waitlist</a>
+      <a class="btn btn-secondary" href="#"><span class="material-symbols-rounded">code</span>GitHub soon</a>
+    </div>
+    <div class="eyrow" style="justify-content:center;margin-top:16px">
+      <span class="chip"><span class="material-symbols-rounded">android</span>Android · soon</span>
+      <span class="chip"><span class="material-symbols-rounded">phone_iphone</span>iPhone · soon</span>
+      <span class="chip"><span class="material-symbols-rounded">desktop_windows</span>Desktop · soon</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <a class="brand" href="#top"><span class="mark"><img src="../assets/uniun_logo.svg" alt="" onerror="this.style.display='none'"/></span><span class="word">UNIUN</span></a>
+    <div style="display:flex;gap:24px;flex-wrap:wrap">
+      <a href="#vishnu">Feed</a><a href="#graph">Graph</a><a href="#shiv">Shiv AI</a><a href="#sovereign">Sovereignty</a>
+      <a href="/privacy-policy">Privacy</a><a href="/terms-of-service">Terms</a><a href="/support">Support</a>
+    </div>
+    <span class="muted" style="font-size:.85rem">Your notes, your network, your AI.</span>
+  </div>
+</footer>
+
+<!-- compare pill -->
+<div style="position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:50;display:flex;gap:6px;padding:7px 8px;border-radius:999px;background:var(--glass-fill);backdrop-filter:blur(12px);border:1px solid var(--border);box-shadow:var(--shadow-nav);font-size:.82rem">
+  <span style="padding:6px 10px;color:var(--text-muted);font-weight:600">Design-system site</span>
+  <a style="padding:6px 13px;border-radius:999px;background:var(--primary);color:#fff;font-weight:600" href="website.html">This</a>
+  <a style="padding:6px 13px;border-radius:999px;color:var(--text-secondary);font-weight:600" href="index.html">Earlier (dark)</a>
+</div>
+
+</body>
+</html>

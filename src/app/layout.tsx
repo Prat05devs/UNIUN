@@ -1,14 +1,34 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
+
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist",
+  display: "swap"
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  display: "swap"
+});
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-newsreader",
+  style: ["normal", "italic"],
+  display: "swap"
+});
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://uniun.vercel.app";
 
-const title = "UNIUN — Your Notes. Your Network. Your AI.";
+const title = "UNIUN — Your decentralized second brain";
 
 const description =
-  "Write notes, connect conversations, share and discover ideas, and ask your own AI from your knowledge — privately, locally, and in your control.";
+  "Capture notes, connect them into a knowledge graph, share on an open network, and ask an AI that runs on your phone — not in someone else's cloud. Decentralized, offline-first, on-device.";
 
 const ogDescription =
   "A note-sharing network where ideas become feed, thread, graph, and AI context. Built for ownership, clarity, and knowledge.";
@@ -118,7 +138,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
+        />
+      </head>
+      <body className={`${geist.variable} ${geistMono.variable} ${newsreader.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

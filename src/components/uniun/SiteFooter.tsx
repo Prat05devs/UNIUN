@@ -74,7 +74,7 @@ export function SiteFooter() {
         <div className="footer-main">
           <div className="footer-brand">
             <div className="footer-logo-row">
-              <img src="/assets/uniun_logo.png" alt="" aria-hidden="true" />
+              <img src="/assets/uniun_logo.svg" alt="" aria-hidden="true" />
               <strong>UNIUN</strong>
             </div>
             <p>
