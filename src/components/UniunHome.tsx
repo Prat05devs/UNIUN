@@ -1,4 +1,5 @@
 import "./uniun/uniun-ds.css";
+import { HowItWorks } from "./uniun/HowItWorks";
 
 /* Material Symbols helper */
 function Icon({ name }: { name: string }) {
@@ -104,7 +105,7 @@ export function UniunHome() {
               </p>
               <div className="eyrow">
                 <a className="btn btn-primary" href="#get"><Icon name="bolt" />Join the waitlist</a>
-                <a className="btn btn-secondary" href="#vishnu">See how it works</a>
+                <a className="btn btn-secondary" href="#how">See how it works</a>
               </div>
               <div className="trust">
                 <span><Icon name="lan" />Built on Nostr</span>
@@ -156,148 +157,8 @@ export function UniunHome() {
           </div>
         </section>
 
-        {/* VISHNU */}
-        <section id="vishnu" className="surface-sec">
-          <div className="wrap">
-            <div className="split">
-              <div>
-                <span className="section-label"><Icon name="forum" />Vishnu · the social layer</span>
-                <h2 className="h2">A feed in time, not an algorithm.</h2>
-                <p className="lead">
-                  Notes from the people you follow, in order — no ranking engine deciding what you think about.
-                  And because every message is just a note, channels and DMs behave exactly like your feed.
-                </p>
-                <div className="eyrow">
-                  <span className="e2e"><Icon name="lock" />End-to-end encrypted</span>
-                  <span className="chip"><Icon name="account_tree" />Threads, references on top</span>
-                  <span className="chip"><Icon name="bookmark" />Save & follow notes</span>
-                  <span className="chip"><Icon name="cell_tower" />Add your own relay</span>
-                </div>
-              </div>
-              <div className="split-media"><PhoneShot src="/assets/drawer.png" alt="UNIUN navigation drawer — channels, groups, private spaces, and direct messages" /></div>
-            </div>
-            <div className="cols-3" style={{ marginTop: "clamp(36px,5vw,60px)" }}>
-              <article className="card">
-                <div className="card-head"><div className="lhs"><span className="isq"><Icon name="tag" /></span><span className="card-title">Channels</span></div></div>
-                <p style={{ marginTop: 12 }}>Public rooms organized by topic. Join by QR or channel id — the first event becomes the permanent room.</p>
-              </article>
-              <article className="card">
-                <div className="card-head"><div className="lhs"><span className="isq"><Icon name="lock" /></span><span className="card-title">Private channels</span></div></div>
-                <p style={{ marginTop: 12 }}>Invite-only group spaces, MLS-encrypted, with admin-approved membership and pending requests.</p>
-              </article>
-              <article className="card">
-                <div className="card-head"><div className="lhs"><span className="isq"><Icon name="alternate_email" /></span><span className="card-title">Direct messages</span></div></div>
-                <p style={{ marginTop: 12 }}>One-to-one and end-to-end encrypted — only the recipient is ever visible on the relay.</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        {/* BRAHMA GRAPH */}
-        <section id="graph">
-          <div className="wrap split rev">
-            <div>
-              <span className="section-label"><Icon name="hub" />Brahma · the graph</span>
-              <h2 className="h2">Your notes, as a graph.</h2>
-              <p className="lead">
-                Every note is a node; every reference is an edge. Saved, your own, and draft notes form a living
-                map you can pan, search, and build on — then scope your AI to any slice of it as a <strong>Manas</strong>.
-              </p>
-              <div className="eyrow">
-                <span className="chip"><Icon name="grain" />Force-graph canvas</span>
-                <span className="chip"><Icon name="layers" />Scope to a Manas</span>
-                <span className="chip"><Icon name="edit_note" />Compose on the graph</span>
-              </div>
-            </div>
-            <div className="split-media"><PhoneShot src="/assets/brahma.png" alt="UNIUN knowledge graph — saved, own, and draft notes as connected nodes" /></div>
-          </div>
-        </section>
-
-        {/* SHIV */}
-        <section id="shiv" className="surface-sec">
-          <div className="wrap split">
-            <div>
-              <span className="section-label"><Icon name="auto_awesome" />Shiv · on-device AI</span>
-              <h2 className="h2">An AI that runs on your phone.</h2>
-              <p className="lead">
-                Shiv answers from the notes you’ve created and saved — grounded in your own knowledge through GraphRAG.
-                Pick a model matched to your phone’s RAM; your thoughts never leave the device.
-              </p>
-              <div className="chiprow">
-                <span className="chip chip-tonal"><Icon name="graph_3" />Grounded in your notes</span>
-                <span className="chip"><Icon name="account_tree" />Branch into a tree</span>
-                <span className="chip"><Icon name="edit_note" />Inline composer-chat</span>
-              </div>
-              <p className="muted" style={{ marginTop: 22, fontSize: ".85rem" }}>On-device models, matched to your RAM:</p>
-              <div className="chiprow">
-                <span className="chip mono">Qwen3 0.6B</span>
-                <span className="chip mono">DeepSeek R1 1.5B</span>
-                <span className="chip mono">Gemma 4 E2B</span>
-                <span className="chip mono">Gemma 4 E4B</span>
-              </div>
-            </div>
-            <div className="split-media"><PhoneShot src="/assets/shiv_home.png" alt="Shiv — the on-device AI assistant home screen" /></div>
-          </div>
-        </section>
-
-        {/* NATARAJ */}
-        <section id="nataraj">
-          <div className="wrap split rev">
-            <div>
-              <span className="section-label"><Icon name="style" />Nataraj · idea fusion</span>
-              <h2 className="h2">Make new ideas from old ones.</h2>
-              <p className="lead">
-                A swipe deck that fuses two or three of your own notes into a brand-new idea. Keep the ones that
-                spark and publish them back into your graph as a draft — new thought made from what you already know.
-              </p>
-              <div className="eyrow">
-                <span className="chip"><Icon name="swipe" />Skip · Keep · Discuss</span>
-                <span className="chip"><Icon name="shuffle" />Shuffle sources</span>
-              </div>
-            </div>
-            <div className="split-media"><PhoneShot src="/assets/shiv_natraj.png" alt="Nataraj — a new idea composed from referenced notes, ready to publish as a draft" /></div>
-          </div>
-        </section>
-
-        {/* GANA */}
-        <section id="gana" className="surface-sec">
-          <div className="wrap">
-            <span className="section-label"><Icon name="smart_toy" />Gana · autonomous agents</span>
-            <h2 className="h2">Agents that work while you don’t.</h2>
-            <p className="lead" style={{ maxWidth: "56ch" }}>
-              A Gana watches a surface, reasons over a Manas you assign it, and acts on its own — summarizing,
-              curating, or publishing on a schedule. Your mind, reaching into the world without you in the loop.
-            </p>
-            <div className="cols-2">
-              <article className="card">
-                <div className="card-head">
-                  <div className="lhs"><span className="isq"><Icon name="summarize" /></span>
-                    <div><div className="card-title">Daily digest</div><div className="muted" style={{ fontSize: ".82rem" }}>Last run · 8:00 AM</div></div></div>
-                  <span className="switch" />
-                </div>
-                <div className="gana-rows">
-                  <div className="gana-row"><Icon name="visibility" />Watches <b>#tech channel</b></div>
-                  <div className="gana-row"><Icon name="layers" />Reasons over <b>Work Manas</b></div>
-                  <div className="gana-row"><Icon name="schedule" />Every morning</div>
-                  <div className="gana-row"><Icon name="send" />Publishes to <b>your feed</b></div>
-                </div>
-              </article>
-              <article className="card">
-                <div className="card-head">
-                  <div className="lhs"><span className="isq"><Icon name="bookmark_add" /></span>
-                    <div><div className="card-title">Saved curator</div><div className="muted" style={{ fontSize: ".82rem" }}>Paused</div></div></div>
-                  <span className="switch off" />
-                </div>
-                <div className="gana-rows">
-                  <div className="gana-row"><Icon name="visibility" />Watches <b>Saved notes</b></div>
-                  <div className="gana-row"><Icon name="layers" />Reasons over <b>Research Manas</b></div>
-                  <div className="gana-row"><Icon name="bolt" />When something new arrives</div>
-                  <div className="gana-row"><Icon name="draft" />Saves as a <b>draft</b></div>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
+        {/* HOW IT WORKS — pinned walkthrough */}
+        <HowItWorks />
 
         {/* SOVEREIGNTY */}
         <section id="sovereign">
