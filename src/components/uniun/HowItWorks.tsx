@@ -1,0 +1,218 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+/* Material Symbols helper (mirrors UniunHome). */
+function Icon({ name }: { name: string }) {
+  return (
+    <span className="material-symbols-rounded" aria-hidden="true">
+      {name}
+    </span>
+  );
+}
+
+type Feature = { icon: string; title: string; body: string };
+
+type Step = {
+  id: string;
+  num: string;
+  label: string;
+  img: string;
+  alt: string;
+  title: string;
+  lead: string;
+  features: Feature[];
+  models?: string[];
+};
+
+/* The three ways to build your Brahman — Brahma · Vishnu · Shiv.
+   Anchor ids (graph / vishnu / shiv) are kept so the nav + footer links
+   still resolve to these steps. */
+const steps: Step[] = [
+  {
+    id: "graph",
+    num: "01",
+    label: "Brahma · create",
+    img: "/assets/brahma.png",
+    alt: "UNIUN knowledge graph — notes and the connections you draw between them",
+    title: "Create your own thoughts.",
+    lead:
+      "Brahma is the act of creation. You author notes and, in authoring them, build the graph — every reference an edge, every note a node in your Brahman.",
+    features: [
+      { icon: "edit_note", title: "Write notes", body: "the atomic unit of UNIUN — plain thoughts, captured permanently." },
+      { icon: "polyline", title: "Draw connections", body: "reference notes as you write; every reference is a graph edge." },
+      { icon: "hub", title: "See the graph", body: "an interactive canvas of your Brahman — compose new notes right over it." },
+      { icon: "layers", title: "Manas", body: "curate named subsets of notes into focused lenses for your AI." },
+      { icon: "draft", title: "Drafts", body: "work in progress that lives only on your device until you publish." }
+    ]
+  },
+  {
+    id: "vishnu",
+    num: "02",
+    label: "Vishnu · share",
+    img: "/assets/vishnu_feed.png",
+    alt: "UNIUN feed — notes from the people you follow, in time order",
+    title: "Take in and share the thoughts of others.",
+    lead:
+      "Vishnu is the preserver — the social membrane where your Brahman meets everyone else's. Absorb thoughts worth keeping, and offer your own.",
+    features: [
+      { icon: "dynamic_feed", title: "The Feed", body: "a chronological stream from the people you follow. Time, not an algorithm." },
+      { icon: "account_tree", title: "Threads", body: "follow any conversation as a tree of replies — and ask the thread itself." },
+      { icon: "tag", title: "Channels", body: "public rooms, plus invite-only private channels with admin-controlled membership." },
+      { icon: "lock", title: "Direct messages", body: "end-to-end encrypted; only the recipient is ever visible on the relay." },
+      { icon: "bookmark", title: "Saved & followed", body: "keep a thought forever, or subscribe to a note's reference graph." }
+    ]
+  },
+  {
+    id: "shiv",
+    num: "03",
+    label: "Shiv · transform",
+    img: "/assets/shiv_home.png",
+    alt: "Shiv — the on-device AI assistant grounded in your own notes",
+    title: "Churn your thoughts into new ones.",
+    lead:
+      "Shiv is the transformer — the falling apple. It looks at the Brahman you already have and draws the connections latent in it all along. All of it runs on your device; none of it calls the cloud.",
+    features: [
+      { icon: "auto_awesome", title: "Shiv chat", body: "talk to your notes or a single Manas, grounded by GraphRAG — branch into a tree." },
+      { icon: "style", title: "Nataraj", body: "a swipe-deck that fuses two or three of your notes into a brand-new idea." },
+      { icon: "smart_toy", title: "Ganas", body: "autonomous agents that watch a surface, reason over a Manas, and act on a schedule." },
+      { icon: "forum", title: "Composer-chat", body: "the same on-device intelligence, inline in every conversation." }
+    ],
+    models: ["Qwen3 0.6B", "DeepSeek R1 1.5B", "Gemma 4 E2B", "Gemma 4 E4B"]
+  }
+];
+
+export function HowItWorks() {
+  const [active, setActive] = useState(0);
+  const stepRefs = useRef<Array<HTMLElement | null>>([]);
+
+  useEffect(() => {
+    const nodes = stepRefs.current.filter(Boolean) as HTMLElement[];
+    if (!nodes.length) return;
+
+    // On reduced motion the layout falls back to a static stack (CSS), so
+    // there is nothing to observe.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const idx = Number((entry.target as HTMLElement).dataset.index);
+          if (!Number.isNaN(idx)) setActive(idx);
+        });
+      },
+      // Activate a step when it crosses a thin band at the vertical center.
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+    );
+
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section id="how" className="how surface-sec">
+      <div className="wrap">
+        <span className="section-label">
+          <Icon name="deployed_code" />
+          How UNIUN works
+        </span>
+        <h2 className="h2">Three ways to build your Brahman.</h2>
+        <p className="lead" style={{ maxWidth: "56ch" }}>
+          Your knowledge graph grows three ways — named for the trinity that
+          creates, sustains, and transforms.
+        </p>
+
+        <div className="how-grid">
+          {/* pinned phone (desktop) — cross-fades to the active pillar */}
+          <div className="how-stage">
+            <div className="phone phone-shot how-phone" aria-live="polite">
+              <div className="screen">
+                {steps.map((s, i) => (
+                  <img
+                    key={s.id}
+                    src={s.img}
+                    alt={s.alt}
+                    className={`how-shot${active === i ? " on" : ""}`}
+                    aria-hidden={active !== i}
+                    loading="lazy"
+                    decoding="async"
+                    draggable={false}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="how-dots" aria-hidden="true">
+              {steps.map((s, i) => (
+                <span key={s.id} className={active === i ? "on" : undefined} />
+              ))}
+            </div>
+          </div>
+
+          {/* scrolling pillars */}
+          <div className="how-steps">
+            {steps.map((s, i) => (
+              <article
+                key={s.id}
+                id={s.id}
+                ref={(el) => {
+                  stepRefs.current[i] = el;
+                }}
+                data-index={i}
+                className={`how-step${active === i ? " active" : ""}`}
+              >
+                <div className="how-step-head">
+                  <span className="how-num mono">{s.num}</span>
+                  <span className="how-tag">{s.label}</span>
+                </div>
+                <h3 className="h3">{s.title}</h3>
+                <p className="how-lead">{s.lead}</p>
+
+                <ul className="how-features">
+                  {s.features.map((f) => (
+                    <li key={f.title}>
+                      <Icon name={f.icon} />
+                      <span>
+                        <b>{f.title}</b> — {f.body}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                {s.models ? (
+                  <>
+                    <p className="how-models-label muted">
+                      On-device models, matched to your phone’s RAM:
+                    </p>
+                    <div className="how-models">
+                      {s.models.map((m) => (
+                        <span className="chip mono" key={m}>
+                          {m}
+                        </span>
+                      ))}
+                    </div>
+                  </>
+                ) : null}
+
+                {/* inline phone shown only on the stacked (mobile / reduced-motion) layout */}
+                <div className="how-step-media">
+                  <div className="phone phone-shot">
+                    <div className="screen">
+                      <img
+                        src={s.img}
+                        alt={s.alt}
+                        loading="lazy"
+                        decoding="async"
+                        draggable={false}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
