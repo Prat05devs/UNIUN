@@ -1,15 +1,5 @@
 import type { Metadata } from "next";
-import {
-  Database,
-  FileText,
-  LockKeyhole,
-  Mail,
-  ShieldCheck,
-  Smartphone,
-  Sparkles
-} from "lucide-react";
-import { SiteFooter } from "../../components/uniun/SiteFooter";
-import { SiteNav } from "../../components/uniun/SiteNav";
+import { DsxFooter, DsxNav, Icon } from "../../components/uniun/DsxChrome";
 
 const supportEmail = "pranavpandey1998developer@gmail.com";
 const displaySupportEmail = "pranavpandey1998developer@gmail.com";
@@ -101,17 +91,17 @@ const summaryCards = [
   {
     title: "Your data stays on your device",
     body: "Notes, profile, saved items, channel messages, and settings are stored locally — not on any server controlled by UNIUN.",
-    icon: Smartphone
+    icon: "smartphone"
   },
   {
     title: "Your keys, your control",
     body: "Your private key (nsec) lives only in your device's secure system keychain. UNIUN never transmits it to any server.",
-    icon: ShieldCheck
+    icon: "verified_user"
   },
   {
     title: "On-device AI",
     body: "The Shiv AI assistant runs entirely on your device and accesses only your locally saved notes. No content leaves your device.",
-    icon: Sparkles
+    icon: "auto_awesome"
   }
 ];
 
@@ -126,120 +116,128 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="legal-page">
-      <SiteNav />
+    <div className="dsx" id="top">
+      <DsxNav />
 
-      <main id="top">
-        <section className="legal-hero" aria-labelledby="privacy-title">
-          <div className="legal-hero-copy">
-            <p className="eyebrow">Legal notes</p>
-            <h1 id="privacy-title">Privacy Policy</h1>
-            <p>
-              UNIUN is built on transparency. Your data stays on your device.
-              Below is everything you need to know — no legal jargon.
-            </p>
-            <span>Last updated: {lastUpdated}</span>
-          </div>
-
-          <div className="legal-hero-card" aria-label="Privacy summary">
-            <LockKeyhole aria-hidden="true" />
-            <strong>Your data stays on your device.</strong>
-            <p>
-              UNIUN is local-first and built around ownership and user control.
-              This page explains exactly what stays local and what gets shared.
-            </p>
-          </div>
-        </section>
-
-        <section className="legal-summary" aria-label="Privacy highlights">
-          {summaryCards.map(({ title, body, icon: Icon }) => (
-            <article key={title}>
-              <Icon aria-hidden="true" />
-              <h2>{title}</h2>
-              <p>{body}</p>
-            </article>
-          ))}
-        </section>
-
-        <section className="legal-document-section" aria-label="Privacy Policy document">
-          <aside className="legal-sidebar" aria-label="Legal pages">
-            <strong>Legal</strong>
-            {legalLinks.map((link) => (
-              <a
-                className={link.active ? "active" : undefined}
-                href={link.href}
-                key={link.label}
-              >
-                <FileText aria-hidden="true" />
-                {link.label}
-              </a>
-            ))}
-          </aside>
-
-          <article className="legal-document">
-            <nav className="legal-breadcrumb" aria-label="Breadcrumb">
-              <a href="/">UNIUN</a>
-              <span>/</span>
-              <span>Privacy Policy</span>
-            </nav>
-
-            <div className="legal-document-intro">
-              <h2>Privacy Policy</h2>
-              <p>
+      <main>
+        <section className="phead" aria-labelledby="privacy-title">
+          <div className="wrap hero-split">
+            <div>
+              <span className="section-label"><Icon name="lock" />Legal notes</span>
+              <h1 id="privacy-title">Privacy Policy</h1>
+              <p className="lead" style={{ maxWidth: "46ch" }}>
                 UNIUN is built on transparency. Your data stays on your device.
                 Below is everything you need to know — no legal jargon.
               </p>
+              <span className="updated"><Icon name="schedule" />Last updated: {lastUpdated}</span>
             </div>
 
-            {policySections.map((section) => (
-              <section className="legal-copy-section" id={section.id} key={section.id}>
-                <h3>{section.title}</h3>
-                {section.body.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-                {section.link ? (
-                  <p>
-                    <a
-                      href={section.link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {section.link.label}
-                    </a>
-                  </p>
-                ) : null}
-              </section>
-            ))}
+            <div className="feature-card" aria-label="Privacy summary">
+              <span className="isq"><Icon name="lock" /></span>
+              <strong>Your data stays on your device.</strong>
+              <p>
+                UNIUN is local-first and built around ownership and user control.
+                This page explains exactly what stays local and what gets shared.
+              </p>
+            </div>
+          </div>
+        </section>
 
-            <div className="legal-contact-card">
-              <Database aria-hidden="true" />
-              <div>
-                <strong>Privacy or data request?</strong>
+        <section style={{ paddingTop: 0 }} aria-label="Privacy highlights">
+          <div className="wrap">
+            <div className="cols-3">
+              {summaryCards.map(({ title, body, icon }) => (
+                <article className="card ftile" key={title}>
+                  <span className="isq"><Icon name={icon} /></span>
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section style={{ paddingTop: "clamp(32px,5vw,56px)" }} aria-label="Privacy Policy document">
+          <div className="wrap doc-grid">
+            <aside className="rail" aria-label="Legal pages">
+              <strong>Legal</strong>
+              {legalLinks.map((link) => (
+                <a
+                  className={link.active ? "active" : undefined}
+                  href={link.href}
+                  key={link.label}
+                >
+                  <Icon name="description" />
+                  {link.label}
+                </a>
+              ))}
+            </aside>
+
+            <article className="prose">
+              <nav className="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">UNIUN</a>
+                <span>/</span>
+                <span>Privacy Policy</span>
+              </nav>
+
+              <div className="prose-intro">
+                <h2>Privacy Policy</h2>
                 <p>
-                  Email <a href={`mailto:${supportEmail}`}>{displaySupportEmail}</a> and
-                  include the account or app context we should use to find your
-                  request.
+                  UNIUN is built on transparency. Your data stays on your device.
+                  Below is everything you need to know — no legal jargon.
                 </p>
               </div>
-            </div>
-          </article>
 
-          <aside className="legal-toc" aria-label="Privacy Policy sections">
-            <strong>On this page</strong>
-            {policySections.map((section) => (
-              <a href={`#${section.id}`} key={section.id}>
-                {section.title.replace(/^\d+\.\s/, "")}
+              {policySections.map((section) => (
+                <section id={section.id} key={section.id}>
+                  <h3>{section.title}</h3>
+                  {section.body.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                  {section.link ? (
+                    <p>
+                      <a
+                        href={section.link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {section.link.label}
+                      </a>
+                    </p>
+                  ) : null}
+                </section>
+              ))}
+
+              <div className="callout">
+                <Icon name="database" />
+                <div>
+                  <strong>Privacy or data request?</strong>
+                  <p>
+                    Email <a href={`mailto:${supportEmail}`}>{displaySupportEmail}</a> and
+                    include the account or app context we should use to find your
+                    request.
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <aside className="toc" aria-label="Privacy Policy sections">
+              <strong style={{ display: "block", fontSize: ".6875rem", letterSpacing: ".14em", textTransform: "uppercase", color: "var(--text-muted)", margin: "0 0 10px 12px" }}>On this page</strong>
+              {policySections.map((section) => (
+                <a href={`#${section.id}`} key={section.id}>
+                  {section.title.replace(/^\d+\.\s/, "")}
+                </a>
+              ))}
+              <a className="toc-cta" href={`mailto:${supportEmail}`}>
+                <Icon name="mail" />
+                Contact privacy
               </a>
-            ))}
-            <a className="legal-toc-contact" href={`mailto:${supportEmail}`}>
-              <Mail aria-hidden="true" />
-              Contact privacy
-            </a>
-          </aside>
+            </aside>
+          </div>
         </section>
       </main>
 
-      <SiteFooter />
+      <DsxFooter />
     </div>
   );
 }

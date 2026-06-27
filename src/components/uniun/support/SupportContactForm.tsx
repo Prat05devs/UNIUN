@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent } from "react";
-import { Send } from "lucide-react";
 
 const supportEmail = "pranavpandey1998developer@gmail.com";
 
@@ -32,18 +31,23 @@ export function SupportContactForm() {
   };
 
   return (
-    <form className="support-form" onSubmit={handleSubmit}>
-      <div className="support-form-heading">
-        <span>Contact support</span>
-        <h2>Tell us what needs attention.</h2>
+    <form className="card" onSubmit={handleSubmit}>
+      <div style={{ marginBottom: 20 }}>
+        <span className="section-label" style={{ margin: "0 0 8px" }}>
+          <span className="material-symbols-rounded" aria-hidden="true">
+            edit_note
+          </span>
+          Contact support
+        </span>
+        <h2 className="h3">Tell us what needs attention.</h2>
       </div>
 
-      <label>
+      <label className="field">
         <span>Name</span>
         <input name="name" type="text" autoComplete="name" placeholder="Your name" required />
       </label>
 
-      <label>
+      <label className="field">
         <span>Email</span>
         <input
           name="email"
@@ -54,7 +58,7 @@ export function SupportContactForm() {
         />
       </label>
 
-      <label>
+      <label className="field">
         <span>Support topic</span>
         <select name="topic" defaultValue="iOS app support">
           <option>iOS app support</option>
@@ -65,12 +69,12 @@ export function SupportContactForm() {
         </select>
       </label>
 
-      <label>
+      <label className="field">
         <span>Device or platform</span>
         <input name="device" type="text" placeholder="iPhone, iPad, web, or desktop" />
       </label>
 
-      <label className="support-form-message">
+      <label className="field">
         <span>Message</span>
         <textarea
           name="message"
@@ -79,8 +83,10 @@ export function SupportContactForm() {
         />
       </label>
 
-      <button type="submit">
-        <Send aria-hidden="true" />
+      <button className="btn btn-primary" type="submit" style={{ justifySelf: "start" }}>
+        <span className="material-symbols-rounded" aria-hidden="true">
+          send
+        </span>
         Send message
       </button>
     </form>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { SiteFooter } from "../../components/uniun/SiteFooter";
-import { SiteNav } from "../../components/uniun/SiteNav";
+import { DsxFooter, DsxNav, Icon } from "../../components/uniun/DsxChrome";
 
 const siteMapGroups = [
   {
@@ -47,33 +46,41 @@ export const metadata: Metadata = {
 
 export default function SiteMapPage() {
   return (
-    <div className="plain-page">
-      <SiteNav />
+    <div className="dsx" id="top">
+      <DsxNav />
 
-      <main className="plain-document plain-sitemap" id="top">
-        <p className="plain-kicker">Website</p>
-        <h1>Site Map</h1>
-        <p className="plain-updated">
-          A simple list of public pages and key sections on the UNIUN website.
-        </p>
+      <main>
+        <section className="phead">
+          <div className="wrap">
+            <span className="section-label"><Icon name="account_tree" />Website</span>
+            <h1>Site Map</h1>
+            <p className="lead" style={{ maxWidth: "52ch" }}>
+              A simple list of public pages and key sections on the UNIUN website.
+            </p>
+          </div>
+        </section>
 
-        <div className="site-map-list">
-          {siteMapGroups.map((group) => (
-            <section key={group.title}>
-              <h2>{group.title}</h2>
-              <ul>
-                {group.links.map((link) => (
-                  <li key={link.href}>
-                    <a href={link.href}>{link.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
+        <section style={{ paddingTop: 0 }}>
+          <div className="wrap">
+            <div className="sitemap-grid">
+              {siteMapGroups.map((group) => (
+                <section key={group.title}>
+                  <h2>{group.title}</h2>
+                  <ul>
+                    {group.links.map((link) => (
+                      <li key={link.href}>
+                        <a href={link.href}>{link.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
-      <SiteFooter />
+      <DsxFooter />
     </div>
   );
 }

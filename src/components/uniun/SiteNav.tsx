@@ -8,7 +8,7 @@ export function SiteNav() {
   return (
     <header className="site-nav" aria-label="Primary">
       <a className="brand" href="/#top" aria-label="UNIUN home">
-        <img className="brand-logo" src="/assets/uniun_logo.png" alt="" aria-hidden="true" />
+        <img className="brand-logo" src="/assets/uniun_logo.svg" alt="" aria-hidden="true" />
         <span>UNIUN</span>
       </a>
       <nav className="nav-links" aria-label="Page sections">
