@@ -410,19 +410,25 @@ a.dsx-row-card:hover,.dsx a.row-card:hover{border-color:var(--border-strong)}
 
 /* ============================================================
    How UNIUN works — pinned scroll walkthrough (scoped .dsx)
-   Desktop: phone sticks (position:sticky) while the steps scroll;
-   the screenshot cross-fades to the active step. Mobile / reduced
-   motion: a plain stacked list with a phone per step.
+   Desktop: a sticky 100vh viewport holds BOTH the phone and the
+   text block, vertically centered TOGETHER; both cross-fade
+   between pillars while invisible 100vh triggers scroll past — so
+   nothing drifts. Mobile / reduced motion: a plain stacked list
+   with a phone per pillar.
    ============================================================ */
-.dsx .how{padding-block:clamp(56px,8vw,112px)}
-.dsx .how-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(32px,6vw,84px);
-  align-items:start;margin-top:clamp(28px,4vw,52px)}
+.dsx .how{padding-block:clamp(56px,8vw,80px) 0}
+.dsx .how-head{margin-bottom:clamp(8px,2vw,24px)}
 
-/* pinned phone column */
-.dsx .how-stage{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:18px}
-/* the base .screen is position:absolute;inset:9px — that already gives it size and
-   a containing block for the stacked shots, so we must NOT override it to relative. */
+/* --- desktop: pinned viewport (holds phone + text, centered together) --- */
+.dsx .how-scroller{position:relative}
+.dsx .how-viewport{position:sticky;top:0;height:100vh;display:grid;align-items:center}
+.dsx .how-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(32px,6vw,84px);
+  align-items:center;width:100%}
+
+/* phone column — screenshots cross-fade in place */
+.dsx .how-stage{display:flex;flex-direction:column;align-items:center;gap:18px}
+/* the base .screen is position:absolute;inset:9px — that gives it size and a
+   containing block for the stacked shots, so we must NOT override it to relative. */
 .dsx .how-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   opacity:0;transition:opacity var(--dur-slow) var(--ease-standard)}
 .dsx .how-shot.on{opacity:1}
@@ -431,38 +437,55 @@ a.dsx-row-card:hover,.dsx a.row-card:hover{border-color:var(--border-strong)}
   transition:width var(--dur-base) var(--ease-standard),background var(--dur-base) var(--ease-standard)}
 .dsx .how-dots span.on{width:22px;background:var(--primary)}
 
-/* scrolling steps */
-.dsx .how-steps{display:grid}
-.dsx .how-step{min-height:80vh;display:flex;flex-direction:column;justify-content:center;
-  opacity:.38;transition:opacity var(--dur-slow) var(--ease-standard)}
-.dsx .how-step.active{opacity:1}
+/* text column — pillars stacked in ONE grid cell, cross-fading in place
+   (grid-area 1/1 makes the cell size to the tallest pillar, so the phone
+   centers against the same box every step and never drifts). */
+.dsx .how-texts{display:grid}
+.dsx .how-text{grid-area:1/1;display:flex;flex-direction:column;justify-content:center;
+  opacity:0;transform:translateY(10px);pointer-events:none;
+  transition:opacity var(--dur-slow) var(--ease-standard),transform var(--dur-slow) var(--ease-standard)}
+.dsx .how-text.active{opacity:1;transform:none;pointer-events:auto}
 .dsx .how-step-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .dsx .how-num{font-size:.95rem;font-weight:600;color:var(--primary)}
 .dsx .how-tag{font-size:.6875rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
-.dsx .how-step h3{margin-bottom:12px}
-.dsx .how-lead{font-size:1.08rem;line-height:1.6;color:var(--text-secondary);max-width:46ch}
-.dsx .how-features{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:14px;max-width:48ch}
+.dsx .how-text h3{margin-bottom:12px}
+.dsx .how-lead{font-size:1.06rem;line-height:1.58;color:var(--text-secondary);max-width:46ch}
+.dsx .how-features{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:13px;max-width:48ch}
 .dsx .how-features li{display:flex;gap:12px;align-items:flex-start}
 .dsx .how-features li .material-symbols-rounded{font-size:20px;color:var(--primary);flex:0 0 auto;margin-top:1px}
-.dsx .how-features li span{font-size:.98rem;line-height:1.5;color:var(--text-secondary)}
+.dsx .how-features li span{font-size:.96rem;line-height:1.5;color:var(--text-secondary)}
 .dsx .how-features li b{color:var(--text-primary);font-weight:600}
-.dsx .how-models-label{margin-top:22px;font-size:.82rem}
+.dsx .how-models-label{margin-top:20px;font-size:.82rem}
 .dsx .how-models{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.dsx .how-step-media{display:none;margin-top:26px}
+.dsx .how-step-media{display:none}
 
-/* stacked fallback: small screens AND reduced motion */
+/* invisible scroll length: one viewport per pillar, pulled up under the sticky
+   viewport; the trailing screen keeps the last pillar pinned before release. */
+.dsx .how-triggers{margin-top:-100vh;padding-bottom:100vh}
+.dsx .how-trigger{height:100vh}
+
+/* --- stacked fallback: small screens AND reduced motion --- */
 @media(max-width:1023px){
+  .dsx .how{padding-block:clamp(56px,8vw,80px)}
+  .dsx .how-viewport{position:static;height:auto;display:block}
   .dsx .how-grid{grid-template-columns:1fr;gap:0}
   .dsx .how-stage{display:none}
-  .dsx .how-step{min-height:0;opacity:1;padding-block:clamp(36px,8vw,60px);border-top:1px solid var(--border-subtle)}
-  .dsx .how-step:first-child{border-top:none}
-  .dsx .how-step-media{display:block}
+  .dsx .how-texts{display:block}
+  .dsx .how-text{opacity:1;transform:none;pointer-events:auto;
+    padding-block:clamp(40px,9vw,64px);border-top:1px solid var(--border-subtle)}
+  .dsx .how-text:first-child{border-top:none}
+  .dsx .how-step-media{display:block;margin-top:26px}
+  .dsx .how-triggers{display:none}
 }
 @media (prefers-reduced-motion:reduce){
+  .dsx .how-viewport{position:static;height:auto;display:block}
   .dsx .how-grid{grid-template-columns:1fr;gap:0}
   .dsx .how-stage{display:none}
-  .dsx .how-step{min-height:0;opacity:1;padding-block:clamp(36px,8vw,60px);border-top:1px solid var(--border-subtle)}
-  .dsx .how-step:first-child{border-top:none}
-  .dsx .how-step-media{display:block}
+  .dsx .how-texts{display:block}
+  .dsx .how-text{opacity:1;transform:none;pointer-events:auto;
+    padding-block:clamp(40px,9vw,64px);border-top:1px solid var(--border-subtle)}
+  .dsx .how-text:first-child{border-top:none}
+  .dsx .how-step-media{display:block;margin-top:26px}
+  .dsx .how-triggers{display:none}
   .dsx .how-shot{transition:none}
 }

@@ -82,16 +82,73 @@ const steps: Step[] = [
   }
 ];
 
+/* the body of one pillar — reused by the pinned (cross-fade) layout and the
+   stacked mobile layout, so the copy lives in exactly one place. */
+function StepBody({ step }: { step: Step }) {
+  return (
+    <>
+      <div className="how-step-head">
+        <span className="how-num mono">{step.num}</span>
+        <span className="how-tag">{step.label}</span>
+      </div>
+      <h3 className="h3">{step.title}</h3>
+      <p className="how-lead">{step.lead}</p>
+
+      <ul className="how-features">
+        {step.features.map((f) => (
+          <li key={f.title}>
+            <Icon name={f.icon} />
+            <span>
+              <b>{f.title}</b> — {f.body}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      {step.models ? (
+        <>
+          <p className="how-models-label muted">
+            On-device models, matched to your phone’s RAM:
+          </p>
+          <div className="how-models">
+            {step.models.map((m) => (
+              <span className="chip mono" key={m}>
+                {m}
+              </span>
+            ))}
+          </div>
+        </>
+      ) : null}
+    </>
+  );
+}
+
+function Phone({ step }: { step: Step }) {
+  return (
+    <div className="phone phone-shot">
+      <div className="screen">
+        <img
+          src={step.img}
+          alt={step.alt}
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+        />
+      </div>
+    </div>
+  );
+}
+
 export function HowItWorks() {
   const [active, setActive] = useState(0);
-  const stepRefs = useRef<Array<HTMLElement | null>>([]);
+  const triggerRefs = useRef<Array<HTMLElement | null>>([]);
 
   useEffect(() => {
-    const nodes = stepRefs.current.filter(Boolean) as HTMLElement[];
+    const nodes = triggerRefs.current.filter(Boolean) as HTMLElement[];
     if (!nodes.length) return;
 
-    // On reduced motion the layout falls back to a static stack (CSS), so
-    // there is nothing to observe.
+    // On reduced motion the layout falls back to a static stack (CSS), and the
+    // triggers are display:none — so there is nothing to observe.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const observer = new IntersectionObserver(
@@ -102,8 +159,8 @@ export function HowItWorks() {
           if (!Number.isNaN(idx)) setActive(idx);
         });
       },
-      // Activate a step when it crosses a thin band at the vertical center.
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+      // A 0-height band at the vertical center: exactly one trigger crosses it.
+      { rootMargin: "-50% 0px -50% 0px", threshold: 0 }
     );
 
     nodes.forEach((node) => observer.observe(node));
@@ -112,7 +169,7 @@ export function HowItWorks() {
 
   return (
     <section id="how" className="how surface-sec">
-      <div className="wrap">
+      <div className="wrap how-head">
         <span className="section-label">
           <Icon name="deployed_code" />
           How UNIUN works
@@ -122,95 +179,69 @@ export function HowItWorks() {
           Your knowledge graph grows three ways — named for the trinity that
           creates, sustains, and transforms.
         </p>
+      </div>
 
-        <div className="how-grid">
-          {/* pinned phone (desktop) — cross-fades to the active pillar */}
-          <div className="how-stage">
-            <div className="phone phone-shot how-phone" aria-live="polite">
-              <div className="screen">
+      <div className="how-scroller">
+        {/* pinned viewport — holds BOTH the phone and the text, centered;
+            content cross-fades so nothing drifts as you scroll. */}
+        <div className="how-viewport">
+          <div className="wrap how-grid">
+            <div className="how-stage">
+              <div className="phone phone-shot how-phone" aria-live="polite">
+                <div className="screen">
+                  {steps.map((s, i) => (
+                    <img
+                      key={s.id}
+                      src={s.img}
+                      alt={s.alt}
+                      className={`how-shot${active === i ? " on" : ""}`}
+                      aria-hidden={active !== i}
+                      loading="lazy"
+                      decoding="async"
+                      draggable={false}
+                    />
+                  ))}
+                </div>
+              </div>
+              <div className="how-dots" aria-hidden="true">
                 {steps.map((s, i) => (
-                  <img
-                    key={s.id}
-                    src={s.img}
-                    alt={s.alt}
-                    className={`how-shot${active === i ? " on" : ""}`}
-                    aria-hidden={active !== i}
-                    loading="lazy"
-                    decoding="async"
-                    draggable={false}
-                  />
+                  <span key={s.id} className={active === i ? "on" : undefined} />
                 ))}
               </div>
             </div>
-            <div className="how-dots" aria-hidden="true">
+
+            <div className="how-texts">
               {steps.map((s, i) => (
-                <span key={s.id} className={active === i ? "on" : undefined} />
+                <article
+                  key={s.id}
+                  id={s.id}
+                  className={`how-text${active === i ? " active" : ""}`}
+                  aria-hidden={active !== i}
+                >
+                  <StepBody step={s} />
+                  {/* inline phone — shown only on the stacked (mobile) layout */}
+                  <div className="how-step-media">
+                    <Phone step={s} />
+                  </div>
+                </article>
               ))}
             </div>
           </div>
+        </div>
 
-          {/* scrolling pillars */}
-          <div className="how-steps">
-            {steps.map((s, i) => (
-              <article
-                key={s.id}
-                id={s.id}
-                ref={(el) => {
-                  stepRefs.current[i] = el;
-                }}
-                data-index={i}
-                className={`how-step${active === i ? " active" : ""}`}
-              >
-                <div className="how-step-head">
-                  <span className="how-num mono">{s.num}</span>
-                  <span className="how-tag">{s.label}</span>
-                </div>
-                <h3 className="h3">{s.title}</h3>
-                <p className="how-lead">{s.lead}</p>
-
-                <ul className="how-features">
-                  {s.features.map((f) => (
-                    <li key={f.title}>
-                      <Icon name={f.icon} />
-                      <span>
-                        <b>{f.title}</b> — {f.body}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                {s.models ? (
-                  <>
-                    <p className="how-models-label muted">
-                      On-device models, matched to your phone’s RAM:
-                    </p>
-                    <div className="how-models">
-                      {s.models.map((m) => (
-                        <span className="chip mono" key={m}>
-                          {m}
-                        </span>
-                      ))}
-                    </div>
-                  </>
-                ) : null}
-
-                {/* inline phone shown only on the stacked (mobile / reduced-motion) layout */}
-                <div className="how-step-media">
-                  <div className="phone phone-shot">
-                    <div className="screen">
-                      <img
-                        src={s.img}
-                        alt={s.alt}
-                        loading="lazy"
-                        decoding="async"
-                        draggable={false}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+        {/* invisible scroll-length providers — one per pillar; the observer
+            watches these to drive the active step on desktop. */}
+        <div className="how-triggers" aria-hidden="true">
+          {steps.map((s, i) => (
+            <div
+              key={s.id}
+              className="how-trigger"
+              data-index={i}
+              ref={(el) => {
+                triggerRefs.current[i] = el;
+              }}
+            />
+          ))}
         </div>
       </div>
     </section>
