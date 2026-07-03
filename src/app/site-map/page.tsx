@@ -23,7 +23,8 @@ const siteMapGroups = [
     title: "Legal",
     links: [
       { href: "/privacy-policy", label: "Privacy Policy" },
-      { href: "/terms-of-service", label: "Terms of Service" }
+      { href: "/terms-of-service", label: "Terms of Service" },
+      { href: "/child-safety", label: "Child Safety Standards (CSAE)" }
     ]
   },
   {

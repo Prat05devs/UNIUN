@@ -120,6 +120,7 @@ export function SiteFooter() {
             <a href="/support">Support</a>
             <a href="/privacy-policy">Privacy Policy</a>
             <a href="/terms-of-service">Terms of Service</a>
+            <a href="/child-safety">Child Safety</a>
             <a href="/site-map">Site Map</a>
           </div>
         </div>
