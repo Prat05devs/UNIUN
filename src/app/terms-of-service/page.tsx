@@ -63,7 +63,35 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h3>3. Keep Your Private Key Safe</h3>
+              <h3>3. Child Safety (CSAE)</h3>
+              <p>
+                UNIUN has zero tolerance for child sexual abuse and exploitation
+                (CSAE). You must not create, upload, share, request, promote, or
+                distribute any content that exploits, abuses, sexualizes, or
+                endangers a minor — including child sexual abuse material (CSAM),
+                grooming, sextortion, or any content that facilitates the
+                exploitation of children.
+              </p>
+              <p>
+                When we are made aware of such content or accounts, we remove the
+                content, permanently suspend the associated accounts on
+                UNIUN-operated services, and report confirmed CSAM to the
+                appropriate authorities (such as NCMEC) and cooperate with law
+                enforcement as required by applicable law.
+              </p>
+              <p>
+                Report CSAE content in-app via the <strong>Report</strong> option
+                on any note, or email{" "}
+                <a href={`mailto:${supportEmail}?subject=CSAE%20Report`}>
+                  {displaySupportEmail}
+                </a>
+                . Read our full <a href="/child-safety">Child Safety Standards</a>{" "}
+                for details.
+              </p>
+            </section>
+
+            <section>
+              <h3>4. Keep Your Private Key Safe</h3>
               <p>
                 Your private key (nsec) is your identity and login. If you lose it,
                 your account cannot be recovered — UNIUN has no way to reset or recover
@@ -72,7 +100,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h3>4. Public Content on Relays</h3>
+              <h3>5. Public Content on Relays</h3>
               <p>
                 Notes and channel messages you publish are sent to Nostr relays and
                 may be visible to anyone on the network. Do not share sensitive
@@ -81,7 +109,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h3>5. App May Change</h3>
+              <h3>6. App May Change</h3>
               <p>
                 UNIUN is in active development. Features, relay behavior, and policies
                 may change over time. We will communicate significant updates within
@@ -90,7 +118,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h3>6. No Warranty</h3>
+              <h3>7. No Warranty</h3>
               <p>
                 UNIUN is provided as-is. We make no guarantees about relay uptime,
                 third-party server availability, or persistence of content on external
@@ -99,7 +127,7 @@ export default function TermsOfServicePage() {
             </section>
 
             <section>
-              <h3>7. Contact</h3>
+              <h3>8. Contact</h3>
               <p>
                 Questions about these terms can be sent to{" "}
                 <a href={`mailto:${supportEmail}`}>{displaySupportEmail}</a>.
