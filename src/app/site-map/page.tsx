@@ -13,6 +13,14 @@ const siteMapGroups = [
     ]
   },
   {
+    title: "Account",
+    links: [
+      { href: "/pricing", label: "Plans and pricing" },
+      { href: "/login", label: "Login" },
+      { href: "/checkout", label: "Checkout" }
+    ]
+  },
+  {
     title: "Support",
     links: [
       { href: "/support", label: "Support and contact" },

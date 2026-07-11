@@ -10,7 +10,8 @@ const navLinks = [
   { href: "#vishnu", label: "Feed" },
   { href: "#graph", label: "Graph" },
   { href: "#shiv", label: "Shiv AI" },
-  { href: "#sovereign", label: "Sovereignty" }
+  { href: "#sovereign", label: "Sovereignty" },
+  { href: "/pricing", label: "Pricing" }
 ];
 
 const noteForms = [
@@ -87,7 +88,10 @@ export function UniunHome() {
               <a key={l.href} href={l.href}>{l.label}</a>
             ))}
           </div>
-          <a className="btn btn-primary btn-sm" href="#get">Join waitlist</a>
+          <div style={{ display: "flex", gap: 10 }}>
+            <a className="btn btn-secondary btn-sm" href="/login">Login</a>
+            <a className="btn btn-primary btn-sm" href="#get">Join waitlist</a>
+          </div>
         </div>
       </nav>
 

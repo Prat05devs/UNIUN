@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { DsxFooter, DsxNav, Icon } from "../../components/uniun/DsxChrome";
-import { RazorpayCheckoutButton } from "../../components/uniun/RazorpayCheckoutButton";
+import { DsxFooter, DsxNav, Icon } from "@/components/uniun/DsxChrome";
+import { CheckoutButton } from "@/features/payments/component/checkout-button";
 
 export const metadata: Metadata = {
   title: "Checkout",
@@ -30,7 +30,7 @@ export default function CheckoutPage() {
               </p>
 
               <div className="eyrow">
-                <RazorpayCheckoutButton
+                <CheckoutButton
                   amount={50000}
                   label="Pay ₹500"
                   description="UNIUN checkout"
