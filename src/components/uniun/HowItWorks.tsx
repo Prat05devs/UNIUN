@@ -23,6 +23,7 @@ type Step = {
   lead: string;
   features: Feature[];
   models?: string[];
+  cloud?: { lead: string; models: string[]; href: string; cta: string };
 };
 
 /* The three ways to build your Brahman — Brahma · Vishnu · Shiv.
@@ -78,7 +79,13 @@ const steps: Step[] = [
       { icon: "smart_toy", title: "Ganas", body: "autonomous agents that watch a surface, reason over a Manas, and act on a schedule." },
       { icon: "forum", title: "Composer-chat", body: "the same on-device intelligence, inline in every conversation." }
     ],
-    models: ["Qwen3 0.6B", "DeepSeek R1 1.5B", "Gemma 4 E2B", "Gemma 4 E4B"]
+    models: ["Qwen3 0.6B", "DeepSeek R1 1.5B", "Gemma 4 E2B", "Gemma 4 E4B"],
+    cloud: {
+      lead: "Need a bigger model? The UNIUN inference gateway serves cloud models too — same chat, your choice of brain:",
+      models: ["Claude Sonnet", "Claude Haiku", "GPT-4o", "GPT-4o mini"],
+      href: "/ai-inference",
+      cta: "Explore AI inference"
+    }
   }
 ];
 
@@ -116,6 +123,25 @@ function StepBody({ step }: { step: Step }) {
                 {m}
               </span>
             ))}
+          </div>
+        </>
+      ) : null}
+
+      {step.cloud ? (
+        <>
+          <p className="how-models-label muted">{step.cloud.lead}</p>
+          <div className="how-models">
+            {step.cloud.models.map((m) => (
+              <span className="chip chip-tonal mono" key={m}>
+                {m}
+              </span>
+            ))}
+          </div>
+          <div className="eyrow" style={{ marginTop: 14 }}>
+            <a className="btn btn-tinted btn-sm" href={step.cloud.href}>
+              <Icon name="cloud" />
+              {step.cloud.cta}
+            </a>
           </div>
         </>
       ) : null}

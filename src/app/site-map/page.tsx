@@ -15,7 +15,7 @@ const siteMapGroups = [
   {
     title: "Account",
     links: [
-      { href: "/pricing", label: "Plans and pricing" },
+      { href: "/ai-inference", label: "AI Inference" },
       { href: "/login", label: "Login" },
       { href: "/checkout", label: "Checkout" }
     ]

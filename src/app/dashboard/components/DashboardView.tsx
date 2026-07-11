@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { PageLoader } from "@/components/molecules/loading";
 import { Icon } from "@/components/uniun/DsxChrome";
+import { useAdminStats } from "@/features/admin/hooks";
 import { useAuth, useRequireAuth } from "@/features/auth/hooks/useAuth";
 import { TopupCard } from "@/features/payments/component/topup-card";
 import { CreditsSummary } from "@/features/usage/component/credits-summary";
@@ -31,6 +32,9 @@ function WelcomeBanner() {
 export function DashboardView() {
   const { session, isLoading } = useRequireAuth();
   const { logout } = useAuth();
+  // Silently probes the admin API; regular users just get a 403 and never
+  // see the console link.
+  const { isAdmin } = useAdminStats();
 
   if (isLoading || !session) {
     return <PageLoader label="Loading your dashboard…" />;
@@ -41,6 +45,26 @@ export function DashboardView() {
       <Suspense fallback={null}>
         <WelcomeBanner />
       </Suspense>
+
+      {isAdmin && (
+        <div
+          className="card"
+          style={{ padding: 20, marginBottom: 24 }}
+          aria-label="Admin"
+        >
+          <div className="chiprow" style={{ marginTop: 0, alignItems: "center" }}>
+            <span className="chip chip-tonal">admin</span>
+            <span className="muted">
+              This is your personal dashboard — the operator console lives
+              separately.
+            </span>
+            <a className="btn btn-primary btn-sm" href="/ops-7x4kq9">
+              <Icon name="admin_panel_settings" />
+              Open admin console
+            </a>
+          </div>
+        </div>
+      )}
 
       <div className="cols-2">
         <CreditsSummary />

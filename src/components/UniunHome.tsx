@@ -1,18 +1,11 @@
 import "./uniun/uniun-ds.css";
+import { DsxFooter, DsxNav } from "./uniun/DsxChrome";
 import { HowItWorks } from "./uniun/HowItWorks";
 
 /* Material Symbols helper */
 function Icon({ name }: { name: string }) {
   return <span className="material-symbols-rounded" aria-hidden="true">{name}</span>;
 }
-
-const navLinks = [
-  { href: "#vishnu", label: "Feed" },
-  { href: "#graph", label: "Graph" },
-  { href: "#shiv", label: "Shiv AI" },
-  { href: "#sovereign", label: "Sovereignty" },
-  { href: "/pricing", label: "Pricing" }
-];
 
 const noteForms = [
   { icon: "forum", label: "Feed post", tonal: true },
@@ -76,24 +69,8 @@ function PhoneShot({ src, alt, eager = false }: { src: string; alt: string; eage
 export function UniunHome() {
   return (
     <div className="dsx" id="top">
-      {/* NAV */}
-      <nav className="nav" aria-label="Primary">
-        <div className="nav-inner">
-          <a className="brand" href="#top" aria-label="UNIUN home">
-            <span className="mark"><img src="/assets/uniun_logo.svg" alt="" aria-hidden="true" /></span>
-            <span className="word">UNIUN</span>
-          </a>
-          <div className="nav-links">
-            {navLinks.map((l) => (
-              <a key={l.href} href={l.href}>{l.label}</a>
-            ))}
-          </div>
-          <div style={{ display: "flex", gap: 10 }}>
-            <a className="btn btn-secondary btn-sm" href="/login">Login</a>
-            <a className="btn btn-primary btn-sm" href="#get">Join waitlist</a>
-          </div>
-        </div>
-      </nav>
+      {/* NAV — shared chrome, same as every other page */}
+      <DsxNav />
 
       <main>
         {/* HERO */}
@@ -203,7 +180,7 @@ export function UniunHome() {
             <span className="section-label" style={{ justifyContent: "center" }}><Icon name="edit_note" />Start with one note</span>
             <h2 className="h2">Build your network. Grow your knowledge.</h2>
             <p className="lead" style={{ margin: "16px auto 0", maxWidth: "50ch" }}>
-              Write a note, connect the context, and ask Shiv. UNIUN is coming to Android, iPhone, and desktop.
+              Write a note, connect the context, and ask Shiv. UNIUN is live on iPhone — Android and desktop are coming.
             </p>
             <div className="eyrow" style={{ justifyContent: "center" }}>
               <a className="btn btn-primary" href="#"><Icon name="bolt" />Join the waitlist</a>
@@ -211,25 +188,22 @@ export function UniunHome() {
             </div>
             <div className="eyrow" style={{ justifyContent: "center", marginTop: 16 }}>
               <span className="chip"><Icon name="android" />Android · soon</span>
-              <span className="chip"><Icon name="phone_iphone" />iPhone · soon</span>
+              <a
+                className="chip chip-tonal"
+                href="https://apps.apple.com/in/app/uniun/id6778077321"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon name="phone_iphone" />iPhone · on the App Store
+              </a>
               <span className="chip"><Icon name="desktop_windows" />Desktop · soon</span>
             </div>
           </div>
         </section>
       </main>
 
-      {/* FOOTER */}
-      <footer className="foot">
-        <div className="wrap foot-grid">
-          <a className="brand" href="#top"><span className="mark"><img src="/assets/uniun_logo.svg" alt="" aria-hidden="true" /></span><span className="word">UNIUN</span></a>
-          <div className="foot-links">
-            <a href="#vishnu">Feed</a><a href="#graph">Graph</a><a href="#shiv">Shiv AI</a><a href="#sovereign">Sovereignty</a>
-            <a href="/privacy-policy">Privacy</a><a href="/terms-of-service">Terms</a><a href="/support">Support</a>
-            <a href="https://github.com/basictech01/uniun" target="_blank" rel="noopener noreferrer">GitHub</a>
-          </div>
-          <span className="muted" style={{ fontSize: ".85rem" }}>Your notes, your network, your AI.</span>
-        </div>
-      </footer>
+      {/* FOOTER — shared chrome, same as every other page */}
+      <DsxFooter />
     </div>
   );
 }
