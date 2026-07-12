@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { createOrder, verifyPayment } from "./index";
+import { createOrder, createPlanOrder, verifyPayment } from "./index";
 import { SESSION_STORAGE_KEY } from "@/types/constant";
 
 const okJson = (body: unknown, status = 200) =>
@@ -56,6 +56,25 @@ describe("payments services", () => {
     });
   });
 
+  describe("createPlanOrder", () => {
+    it("names the plan and never an amount (the server owns the price)", async () => {
+      localStorage.setItem(
+        SESSION_STORAGE_KEY,
+        JSON.stringify({ apiKey: "uk_planbuy" })
+      );
+      fetchMock.mockResolvedValue(
+        okJson({ order_id: "order_plan", amount: 99900, currency: "INR" })
+      );
+      const order = await createPlanOrder("sub_pro");
+      expect(order.order_id).toBe("order_plan");
+      const [url, init] = fetchMock.mock.calls[0];
+      expect(url).toContain("/uniun/v1/payments/orders");
+      expect(JSON.parse(init.body)).toEqual({ plan: "sub_pro" });
+      // Plan purchases must be tied to the account.
+      expect(init.headers.Authorization).toBe("Bearer uk_planbuy");
+    });
+  });
+
   describe("verifyPayment", () => {
     const payload = {
       razorpay_order_id: "order_abc",
@@ -88,6 +107,15 @@ describe("payments services", () => {
       await verifyPayment(payload);
       const [, init] = fetchMock.mock.calls[0];
       expect(init.headers.Authorization).toBeUndefined();
+    });
+
+    it("parses a plan purchase verify (plan assigned server-side)", async () => {
+      fetchMock.mockResolvedValue(
+        okJson({ verified: true, plan: "sub_pro", order_id: "o", payment_id: "p" })
+      );
+      const result = await verifyPayment(payload);
+      expect(result.verified).toBe(true);
+      expect(result.plan).toBe("sub_pro");
     });
 
     it("returns verified: false untouched so the UI can reject the payment", async () => {

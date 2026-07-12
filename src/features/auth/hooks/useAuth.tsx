@@ -14,7 +14,9 @@ import {
   clearSession,
   loadSession,
   loginWithPrivkey,
-  saveSession
+  LoginResult,
+  saveSession,
+  sessionFromApiKey
 } from "../services";
 import { Session } from "../types";
 
@@ -23,7 +25,14 @@ type AuthContextType = {
   // true until localStorage hydration completes — guards against a logged-in
   // user being redirected away before the session is read back.
   isLoading: boolean;
-  login: (privkeyHex: string) => Promise<Session>;
+  // Resolves to needs_key on a returning login (the gateway no longer mints a
+  // key each time) — finish with connectWithKey using one of the saved keys.
+  login: (privkeyHex: string) => Promise<LoginResult>;
+  connectWithKey: (
+    apiKey: string,
+    accountId: string,
+    hasProfile?: boolean
+  ) => Promise<Session>;
   logout: () => void;
 };
 
@@ -31,6 +40,9 @@ const AuthContext = createContext<AuthContextType>({
   session: null,
   isLoading: true,
   login: async () => {
+    throw new Error("AuthProvider missing");
+  },
+  connectWithKey: async () => {
     throw new Error("AuthProvider missing");
   },
   logout: () => {}
@@ -47,11 +59,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = useCallback(async (privkeyHex: string) => {
-    const next = await loginWithPrivkey(privkeyHex);
-    saveSession(next);
-    setSession(next);
-    return next;
+    const result = await loginWithPrivkey(privkeyHex);
+    if (result.status === "ok") {
+      saveSession(result.session);
+      setSession(result.session);
+    }
+    return result;
   }, []);
+
+  const connectWithKey = useCallback(
+    async (apiKey: string, accountId: string, hasProfile?: boolean) => {
+      const next = await sessionFromApiKey(apiKey, accountId, hasProfile);
+      saveSession(next);
+      setSession(next);
+      return next;
+    },
+    []
+  );
 
   const logout = useCallback(() => {
     clearSession();
@@ -60,7 +84,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [queryClient]);
 
   return (
-    <AuthContext.Provider value={{ session, isLoading, login, logout }}>
+    <AuthContext.Provider
+      value={{ session, isLoading, login, connectWithKey, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

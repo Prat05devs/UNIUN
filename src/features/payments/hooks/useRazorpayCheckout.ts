@@ -6,7 +6,10 @@ import { useCreateOrder, useVerifyPayment } from "./index";
 import { CheckoutStatus, RazorpayPaymentResponse } from "../types";
 
 interface UseRazorpayCheckoutOptions {
-  amount: number; // paise
+  // Exactly one of the two: a top-up names an amount in paise, a plan
+  // purchase names the plan (the server charges the plan's own price).
+  amount?: number; // paise
+  plan?: string;
   currency?: string;
   description?: string;
 }
@@ -15,6 +18,7 @@ interface UseRazorpayCheckoutOptions {
 // verify the signature server-side. Only { verified: true } counts as success.
 export function useRazorpayCheckout({
   amount,
+  plan,
   currency = "INR",
   description = "UNIUN payment"
 }: UseRazorpayCheckoutOptions) {
@@ -34,7 +38,9 @@ export function useRazorpayCheckout({
     setStatus({ state: "loading" });
 
     try {
-      const order = await createOrder({ amount, currency });
+      const order = await createOrder(
+        plan ? { plan } : { amount: amount ?? 0, currency }
+      );
 
       const razorpay = new window.Razorpay({
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
@@ -53,7 +59,8 @@ export function useRazorpayCheckout({
             setStatus({
               state: "success",
               paymentId: response.razorpay_payment_id,
-              credited: result.credited
+              credited: result.credited,
+              plan: result.plan
             });
           } catch (error) {
             setStatus({

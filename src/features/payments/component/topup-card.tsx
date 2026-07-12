@@ -11,20 +11,15 @@ const PRESETS = [
   { paise: 100000, label: "₹1,000" }
 ];
 
-export function TopupCard() {
+// The amount picker + pay button, reused wherever a credits-plan wallet can
+// be funded (dashboard card, AI Inference credits card).
+export function TopupControls() {
   const [amount, setAmount] = useState(PRESETS[1].paise);
 
   const selected = PRESETS.find((p) => p.paise === amount) ?? PRESETS[1];
 
   return (
-    <div className="feature-card" aria-label="Buy credits">
-      <span className="isq">
-        <Icon name="add_card" />
-      </span>
-      <strong>Top up credits.</strong>
-      <p>1 credit = ₹1. Credits land in your wallet as soon as the payment is
-      verified.</p>
-
+    <>
       <div className="chiprow" role="group" aria-label="Amount">
         {PRESETS.map((preset) => (
           <button
@@ -49,6 +44,21 @@ export function TopupCard() {
           description="UNIUN credit top-up"
         />
       </div>
+    </>
+  );
+}
+
+export function TopupCard() {
+  return (
+    <div className="feature-card" aria-label="Buy credits">
+      <span className="isq">
+        <Icon name="add_card" />
+      </span>
+      <strong>Top up credits.</strong>
+      <p>1 credit = ₹1. Credits land in your wallet as soon as the payment is
+      verified.</p>
+
+      <TopupControls />
     </div>
   );
 }

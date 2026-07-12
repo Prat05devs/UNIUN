@@ -1,13 +1,17 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createOrder, verifyPayment } from "../services";
+import { createOrder, createPlanOrder, verifyPayment } from "../services";
 import { RazorpayPaymentResponse } from "../types";
 
 export function useCreateOrder() {
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: ({ amount, currency }: { amount: number; currency?: string }) =>
-      createOrder(amount, currency)
+    // A plan purchase names the plan (server-side price); a top-up names the
+    // amount in paise. Exactly one of the two.
+    mutationFn: (input: { amount: number; currency?: string } | { plan: string }) =>
+      "plan" in input
+        ? createPlanOrder(input.plan)
+        : createOrder(input.amount, input.currency)
   });
   return { createOrder: mutateAsync, isCreating: isPending };
 }
@@ -21,6 +25,12 @@ export function useVerifyPayment() {
       // The server computed the new wallet balance — refetch rather than
       // recompute it locally.
       if (result.credited != null) {
+        void queryClient.invalidateQueries({ queryKey: ["credits"] });
+      }
+      // A plan purchase already re-assigned the account's plan server-side —
+      // refetch everything that renders it (badge, model picker, credits).
+      if (result.plan) {
+        void queryClient.invalidateQueries({ queryKey: ["profile"] });
         void queryClient.invalidateQueries({ queryKey: ["credits"] });
       }
     }

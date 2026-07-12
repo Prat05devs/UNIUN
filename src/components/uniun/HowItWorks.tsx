@@ -82,7 +82,7 @@ const steps: Step[] = [
     models: ["Qwen3 0.6B", "DeepSeek R1 1.5B", "Gemma 4 E2B", "Gemma 4 E4B"],
     cloud: {
       lead: "Need a bigger model? The UNIUN inference gateway serves cloud models too — same chat, your choice of brain:",
-      models: ["Claude Sonnet", "Claude Haiku", "GPT-4o", "GPT-4o mini"],
+      models: ["Claude Fable", "Claude Opus", "GPT-5.5", "GPT-5 mini"],
       href: "/ai-inference",
       cta: "Explore AI inference"
     }

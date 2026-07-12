@@ -52,6 +52,20 @@ function AccountRow({ account }: { account: AdminAccount }) {
           <code title={account.pubkey}>{account.pubkey.slice(0, 12)}…</code>
         </td>
         <td style={cell}>
+          {account.username || account.email ? (
+            <>
+              {account.username && <strong>@{account.username}</strong>}
+              {account.email && (
+                <div className="muted" style={{ fontSize: "0.85em" }}>
+                  {account.email}
+                </div>
+              )}
+            </>
+          ) : (
+            <span className="muted">—</span>
+          )}
+        </td>
+        <td style={cell}>
           <select
             value={account.plan}
             disabled={isUpdating || !plans.length}
@@ -106,7 +120,7 @@ function AccountRow({ account }: { account: AdminAccount }) {
       </tr>
       {error && (
         <tr>
-          <td colSpan={7} style={cell}>
+          <td colSpan={8} style={cell}>
             <p role="alert" style={{ margin: 0 }}>
               {error}
             </p>
@@ -157,6 +171,7 @@ export function AccountsTable() {
           <thead>
             <tr>
               <th style={{ ...cell, textAlign: "left" }}>Pubkey</th>
+              <th style={{ ...cell, textAlign: "left" }}>User</th>
               <th style={{ ...cell, textAlign: "left" }}>Plan</th>
               <th style={{ ...cell, textAlign: "left" }}>Role</th>
               <th style={cellRight}>Balance</th>

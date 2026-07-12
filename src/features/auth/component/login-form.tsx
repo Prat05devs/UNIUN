@@ -14,9 +14,14 @@ export function LoginForm() {
     generatedKey,
     error,
     isSubmitting,
+    pendingAccount,
+    apiKey,
     handleChange,
     handleGenerate,
-    handleSubmit
+    handleSubmit,
+    handleApiKeyChange,
+    handleConnectKey,
+    handleBackToLogin
   } = useLoginForm();
 
   // Already logged in — go straight to the dashboard.
@@ -25,6 +30,73 @@ export function LoginForm() {
       router.replace("/dashboard");
     }
   }, [isLoading, session, router]);
+
+  // Step 2 for a returning login on a fresh browser: identity is proven, but
+  // this browser holds no API key — the user pastes one they saved.
+  if (pendingAccount) {
+    return (
+      <form
+        className="feature-card"
+        onSubmit={(e) => {
+          e.preventDefault();
+          void handleConnectKey();
+        }}
+      >
+        <span className="isq">
+          <Icon name="vpn_key" />
+        </span>
+        <strong>Welcome back — connect your API key.</strong>
+        <p>
+          Your identity checked out, but this browser doesn&apos;t have one of
+          your API keys yet. Paste the <code>uk_…</code> key you saved when you
+          signed up (or minted on your dashboard).
+        </p>
+
+        <label className="field" style={{ marginTop: 16 }}>
+          <span>API key</span>
+          <input
+            type="password"
+            name="apikey"
+            value={apiKey}
+            onChange={(e) => handleApiKeyChange(e.target.value)}
+            placeholder="uk_…"
+            autoComplete="off"
+            spellCheck={false}
+            required
+          />
+        </label>
+
+        <div className="chiprow">
+          <button
+            className="btn btn-primary"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Connecting…" : "Connect"}
+          </button>
+          <button
+            className="btn btn-secondary"
+            type="button"
+            onClick={handleBackToLogin}
+            disabled={isSubmitting}
+          >
+            Back
+          </button>
+        </div>
+
+        {error && (
+          <p role="alert" style={{ marginTop: 12 }}>
+            {error}
+          </p>
+        )}
+
+        <p className="muted" style={{ marginTop: 16, fontSize: ".85rem" }}>
+          Lost every key? Revoke them all from a logged-in device — your next
+          login here will issue a fresh one automatically.
+        </p>
+      </form>
+    );
+  }
 
   return (
     <form

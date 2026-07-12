@@ -13,7 +13,10 @@ export const VerifySchema = z.object({
   verified: z.boolean(),
   // present when the order was tied to a logged-in account: credits added
   // to the wallet (1 credit = ₹1)
-  credited: z.number().optional()
+  credited: z.number().optional(),
+  // present when the order bought a subscription plan: the account is
+  // already on this plan by the time verify returns
+  plan: z.string().optional()
 });
 
 export type VerifyResult = z.infer<typeof VerifySchema>;
@@ -27,7 +30,7 @@ export interface RazorpayPaymentResponse {
 export type CheckoutStatus =
   | { state: "idle" }
   | { state: "loading" }
-  | { state: "success"; paymentId: string; credited?: number }
+  | { state: "success"; paymentId: string; credited?: number; plan?: string }
   | { state: "error"; message: string };
 
 export interface RazorpayInstance {

@@ -21,6 +21,16 @@ export async function createOrder(
   return OrderSchema.parse(res);
 }
 
+// Plan purchase: name the plan, never an amount — the server charges the
+// plan's own price_paise so the price can't be tampered with. Requires the
+// Bearer key (auto-attached); anonymous plan buys are rejected with 401.
+export async function createPlanOrder(plan: string): Promise<Order> {
+  const res = await apiClient.postRaw<unknown>("/uniun/v1/payments/orders", {
+    plan
+  });
+  return OrderSchema.parse(res);
+}
+
 // Per the gateway contract only the create-order call carries the key.
 export async function verifyPayment(
   payload: RazorpayPaymentResponse

@@ -25,7 +25,7 @@ function loginErrorMessage(error: unknown): string {
 }
 
 export function useLoginForm() {
-  const { login } = useAuth();
+  const { login, connectWithKey } = useAuth();
   const router = useRouter();
 
   const [privkey, setPrivkey] = useState("");
@@ -34,6 +34,14 @@ export function useLoginForm() {
   const [generatedKey, setGeneratedKey] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Returning login on a browser without a saved key: identity is proven but
+  // the gateway didn't mint a key — the user pastes one they saved earlier.
+  const [pendingAccount, setPendingAccount] = useState<{
+    accountId: string;
+    hasProfile?: boolean;
+  } | null>(null);
+  const [apiKey, setApiKey] = useState("");
 
   const handleChange = useCallback((value: string) => {
     setPrivkey(value);
@@ -57,21 +65,79 @@ export function useLoginForm() {
     setIsSubmitting(true);
     setError(null);
     try {
-      const session = await login(key);
-      router.push(session.newAccount ? "/dashboard?welcome=1" : "/dashboard");
+      const result = await login(key);
+      if (result.status === "needs_key") {
+        setPendingAccount({
+          accountId: result.accountId,
+          hasProfile: result.hasProfile
+        });
+        setIsSubmitting(false);
+        return;
+      }
+      router.push(
+        result.session.newAccount ? "/dashboard?welcome=1" : "/dashboard"
+      );
     } catch (err) {
       setError(loginErrorMessage(err));
       setIsSubmitting(false);
     }
   }, [privkey, login, router]);
 
+  const handleApiKeyChange = useCallback((value: string) => {
+    setApiKey(value);
+    setError(null);
+  }, []);
+
+  const handleConnectKey = useCallback(async () => {
+    if (!pendingAccount) return;
+    const key = apiKey.trim();
+    if (!key.startsWith("uk_")) {
+      setError("API keys start with uk_ — paste the key you saved at signup.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError(null);
+    try {
+      await connectWithKey(key, pendingAccount.accountId, pendingAccount.hasProfile);
+      router.push("/dashboard");
+    } catch (err) {
+      if (err instanceof RequestError) {
+        if (err.type === "wrong_account") {
+          setError(err.message);
+        } else if (
+          err.type === "unauthorized" ||
+          err.type === "invalid_api_key"
+        ) {
+          setError("That key is invalid or revoked. Try another one.");
+        } else {
+          setError(loginErrorMessage(err));
+        }
+      } else {
+        setError("Could not connect with that key. Please try again.");
+      }
+      setIsSubmitting(false);
+    }
+  }, [apiKey, pendingAccount, connectWithKey, router]);
+
+  const handleBackToLogin = useCallback(() => {
+    setPendingAccount(null);
+    setApiKey("");
+    setError(null);
+  }, []);
+
   return {
     privkey,
     generatedKey,
     error,
     isSubmitting,
+    pendingAccount,
+    apiKey,
     handleChange,
     handleGenerate,
-    handleSubmit
+    handleSubmit,
+    handleApiKeyChange,
+    handleConnectKey,
+    handleBackToLogin
   };
 }

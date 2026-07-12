@@ -4,13 +4,19 @@ import { Paginated, withPagination } from "@/types/common";
 import {
   AdminAccount,
   AdminAccountSchema,
+  AdminModel,
+  AdminModelSchema,
+  AdminPlan,
+  AdminPlanSchema,
   AdminPrice,
   AdminPriceSchema,
   AdminStats,
   AdminStatsSchema,
   CreditAdjustResult,
   CreditAdjustResultSchema,
-  CreditOp
+  CreditOp,
+  ProviderCred,
+  ProviderCredSchema
 } from "../types";
 
 // Also serves as the admin gate: a non-admin key gets 403 not_admin.
@@ -76,4 +82,84 @@ export async function upsertPrice(
 
 export async function deletePrice(model: string): Promise<void> {
   await apiClient.delete(`/uniun/v1/admin/prices/${encodeURIComponent(model)}`);
+}
+
+// --- plans (price + unlocked models; POST creates, PATCH edits any subset) ---
+
+export async function fetchAdminPlans(): Promise<AdminPlan[]> {
+  const res = await apiClient.get<AdminPlan[]>("/uniun/v1/admin/plans");
+  return z.array(AdminPlanSchema).parse(res.data);
+}
+
+export async function createPlan(plan: AdminPlan): Promise<AdminPlan> {
+  const res = await apiClient.post<AdminPlan>("/uniun/v1/admin/plans", plan);
+  return AdminPlanSchema.parse(res.data);
+}
+
+export async function patchPlan(
+  name: string,
+  updates: Partial<Omit<AdminPlan, "name">>
+): Promise<AdminPlan> {
+  const res = await apiClient.patch<AdminPlan>(
+    `/uniun/v1/admin/plans/${encodeURIComponent(name)}`,
+    updates
+  );
+  return AdminPlanSchema.parse(res.data);
+}
+
+// 409 plan_in_use when accounts still reference it.
+export async function deletePlan(name: string): Promise<void> {
+  await apiClient.delete(`/uniun/v1/admin/plans/${encodeURIComponent(name)}`);
+}
+
+// --- model catalog ---
+
+export async function fetchAdminModels(): Promise<AdminModel[]> {
+  const res = await apiClient.get<AdminModel[]>("/uniun/v1/admin/models");
+  return z.array(AdminModelSchema).parse(res.data);
+}
+
+export async function upsertModel(
+  id: string,
+  updates: { display_name: string; backend: string; available?: boolean }
+): Promise<AdminModel> {
+  const res = await apiClient.put<AdminModel>(
+    `/uniun/v1/admin/models/${encodeURIComponent(id)}`,
+    updates
+  );
+  return AdminModelSchema.parse(res.data);
+}
+
+export async function deleteModel(id: string): Promise<void> {
+  await apiClient.delete(`/uniun/v1/admin/models/${encodeURIComponent(id)}`);
+}
+
+// Proxies the CLIProxyAPI sidecar's /v1/models so the operator picks real
+// Claude ids instead of typing them. 502 upstream_error when it's unreachable.
+export async function fetchCliproxyModels(): Promise<string[]> {
+  const res = await apiClient.get<unknown>("/uniun/v1/admin/cliproxy/models");
+  const parsed = z
+    .object({ data: z.array(z.object({ id: z.string() })) })
+    .safeParse(res.data);
+  return parsed.success ? parsed.data.data.map((m) => m.id) : [];
+}
+
+// --- provider (backend) credentials — keys live in the DB, masked on read ---
+
+export async function fetchProviders(): Promise<ProviderCred[]> {
+  const res = await apiClient.get<ProviderCred[]>("/uniun/v1/admin/providers");
+  return z.array(ProviderCredSchema).parse(res.data);
+}
+
+// Send api_key only when the operator typed a new one; at least one field
+// required. The gateway applies backend keys on restart (note in response).
+export async function updateProvider(
+  provider: string,
+  updates: { api_key?: string; base_url?: string }
+): Promise<{ note?: string }> {
+  const res = await apiClient.put<{ note?: string }>(
+    `/uniun/v1/admin/providers/${encodeURIComponent(provider)}`,
+    updates
+  );
+  return res.data ?? {};
 }

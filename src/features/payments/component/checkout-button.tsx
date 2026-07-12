@@ -6,7 +6,10 @@ import { useRazorpayCheckout } from "../hooks/useRazorpayCheckout";
 const CHECKOUT_SCRIPT_URL = "https://checkout.razorpay.com/v1/checkout.js";
 
 interface CheckoutButtonProps {
-  amount: number; // paise
+  // One of the two: a credit top-up passes `amount` (paise); a subscription
+  // purchase passes `plan` (the server decides the price).
+  amount?: number; // paise
+  plan?: string;
   currency?: string;
   label?: string;
   description?: string;
@@ -14,12 +17,14 @@ interface CheckoutButtonProps {
 
 export function CheckoutButton({
   amount,
+  plan,
   currency = "INR",
   label = "Pay now",
   description = "UNIUN payment"
 }: CheckoutButtonProps) {
   const { status, handleCheckout } = useRazorpayCheckout({
     amount,
+    plan,
     currency,
     description
   });
@@ -43,6 +48,7 @@ export function CheckoutButton({
           {status.credited != null && (
             <> — {status.credited} credits added to your wallet.</>
           )}
+          {status.plan && <> — you are now on the {status.plan} plan.</>}
         </p>
       )}
 
