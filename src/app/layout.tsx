@@ -26,7 +26,7 @@ const newsreader = Newsreader({
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://uniun.vercel.app";
 
-const title = "UNIUN — Your decentralized second brain";
+const title = "UNIUN — Give your knowledge an Avatar";
 
 const description =
   "Capture notes, connect them into a knowledge graph, share on an open network, and ask an AI that runs on your phone — not in someone else's cloud. Decentralized, offline-first, on-device.";

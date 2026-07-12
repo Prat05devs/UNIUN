@@ -79,7 +79,7 @@ export function UniunHome() {
           <div className="wrap hero-grid">
             <div>
               <span className="section-label"><Icon name="hub" />Decentralized · offline-first · on-device AI</span>
-              <h1 className="h-hero">Your decentralized<br />second brain.</h1>
+              <h1 className="h-hero">Give your Knowledge<br />an Avatar.</h1>
               <p className="lead" style={{ maxWidth: "46ch" }}>
                 Capture notes, connect them into a knowledge graph, share on an open network, and ask an
                 AI that runs on your phone — <strong>not in someone else’s cloud</strong>.
