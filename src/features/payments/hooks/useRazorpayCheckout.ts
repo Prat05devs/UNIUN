@@ -50,6 +50,20 @@ export function useRazorpayCheckout({
         name: "UNIUN",
         description,
         theme: { color: "#111111" },
+        // UPI / cards / netbanking all appear automatically (whatever is
+        // enabled on the Razorpay dashboard); this only surfaces UPI first.
+        config: {
+          display: {
+            blocks: {
+              upi: {
+                name: "Pay via UPI",
+                instruments: [{ method: "upi" }]
+              }
+            },
+            sequence: ["block.upi"],
+            preferences: { show_default_blocks: true }
+          }
+        },
         handler: async (response: RazorpayPaymentResponse) => {
           try {
             const result = await verifyPayment(response);
