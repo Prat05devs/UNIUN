@@ -13,6 +13,13 @@ const siteMapGroups = [
     ]
   },
   {
+    title: "Account",
+    links: [
+      { href: "/ai-inference", label: "AI Inference" },
+      { href: "/login", label: "Login" }
+    ]
+  },
+  {
     title: "Support",
     links: [
       { href: "/support", label: "Support and contact" },

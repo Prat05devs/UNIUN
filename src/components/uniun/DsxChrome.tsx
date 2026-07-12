@@ -3,6 +3,7 @@
    support, site map) matches it exactly. Links use absolute "/#…" hrefs so
    the in-page anchors resolve correctly from any route. */
 import "./uniun-ds.css";
+import { NavAuthButton } from "@/features/auth/component/nav-auth-button";
 
 /* Material Symbols helper (mirrors the one in UniunHome). */
 export function Icon({ name }: { name: string }) {
@@ -17,7 +18,8 @@ const navLinks = [
   { href: "/#vishnu", label: "Feed" },
   { href: "/#graph", label: "Graph" },
   { href: "/#shiv", label: "Shiv AI" },
-  { href: "/#sovereign", label: "Sovereignty" }
+  { href: "/#sovereign", label: "Sovereignty" },
+  { href: "/ai-inference", label: "AI Inference" }
 ];
 
 export function DsxNav() {
@@ -37,9 +39,12 @@ export function DsxNav() {
             </a>
           ))}
         </div>
-        <a className="btn btn-primary btn-sm" href="/#get">
-          Join waitlist
-        </a>
+        <div style={{ display: "flex", gap: 10 }}>
+          <NavAuthButton />
+          <a className="btn btn-primary btn-sm" href="/#get">
+            Join waitlist
+          </a>
+        </div>
       </div>
     </nav>
   );
@@ -60,6 +65,8 @@ export function DsxFooter() {
           <a href="/#graph">Graph</a>
           <a href="/#shiv">Shiv AI</a>
           <a href="/#sovereign">Sovereignty</a>
+          <a href="/ai-inference">AI Inference</a>
+          <a href="/login">Login</a>
           <a href="/privacy-policy">Privacy</a>
           <a href="/terms-of-service">Terms</a>
           <a href="/support">Support</a>

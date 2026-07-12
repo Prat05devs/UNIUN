@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
+import Provider from "./provider";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -145,7 +146,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${geist.variable} ${geistMono.variable} ${newsreader.variable}`}>
-        {children}
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
