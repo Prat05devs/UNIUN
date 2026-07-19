@@ -14,9 +14,7 @@ import {
   AdminStatsSchema,
   CreditAdjustResult,
   CreditAdjustResultSchema,
-  CreditOp,
-  ProviderCred,
-  ProviderCredSchema
+  CreditOp
 } from "../types";
 
 // Also serves as the admin gate: a non-admin key gets 403 not_admin.
@@ -121,7 +119,7 @@ export async function fetchAdminModels(): Promise<AdminModel[]> {
 
 export async function upsertModel(
   id: string,
-  updates: { display_name: string; backend: string; available?: boolean }
+  updates: { display_name: string; category: string; available?: boolean }
 ): Promise<AdminModel> {
   const res = await apiClient.put<AdminModel>(
     `/uniun/v1/admin/models/${encodeURIComponent(id)}`,
@@ -144,22 +142,5 @@ export async function fetchCliproxyModels(): Promise<string[]> {
   return parsed.success ? parsed.data.data.map((m) => m.id) : [];
 }
 
-// --- provider (backend) credentials — keys live in the DB, masked on read ---
-
-export async function fetchProviders(): Promise<ProviderCred[]> {
-  const res = await apiClient.get<ProviderCred[]>("/uniun/v1/admin/providers");
-  return z.array(ProviderCredSchema).parse(res.data);
-}
-
-// Send api_key only when the operator typed a new one; at least one field
-// required. The gateway applies backend keys on restart (note in response).
-export async function updateProvider(
-  provider: string,
-  updates: { api_key?: string; base_url?: string }
-): Promise<{ note?: string }> {
-  const res = await apiClient.put<{ note?: string }>(
-    `/uniun/v1/admin/providers/${encodeURIComponent(provider)}`,
-    updates
-  );
-  return res.data ?? {};
-}
+// Provider (backend) credentials are config-only on the gateway — the old
+// /admin/providers endpoints were removed; there is nothing to call here.

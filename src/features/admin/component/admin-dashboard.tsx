@@ -7,7 +7,6 @@ import { AccountsTable } from "./accounts-table";
 import { ModelsEditor } from "./models-editor";
 import { PlansEditor } from "./plans-editor";
 import { PricesEditor } from "./prices-editor";
-import { ProvidersEditor } from "./providers-editor";
 import { StatsCards } from "./stats-cards";
 
 // Rendered when the visitor is not a verified admin. Deliberately looks like a
@@ -60,9 +59,11 @@ export function AdminDashboard() {
 
       <h2 style={{ marginTop: 48 }}>Model catalog</h2>
       <p className="muted" style={{ margin: "8px 0 20px" }}>
-        The models plans can unlock. Use “Discover Claude models” to pick real
-        ids from the sidecar instead of typing them; hide a model to pull it
-        from the public list without deleting it.
+        The models plans can unlock. Each is <em>free</em> (open to everyone)
+        or <em>paid</em> (flat via a plan, or per-token from credits). Use
+        “Discover Claude models” to pick real ids from the sidecar instead of
+        typing them; hide a model to pull it from the public list without
+        deleting it.
       </p>
       <ModelsEditor />
 
@@ -72,13 +73,6 @@ export function AdminDashboard() {
         no restart.
       </p>
       <PricesEditor />
-
-      <h2 style={{ marginTop: 48 }}>Provider credentials</h2>
-      <p className="muted" style={{ margin: "8px 0 20px" }}>
-        Backend API keys and base URLs, stored in the database. Applied on the
-        next gateway restart.
-      </p>
-      <ProvidersEditor />
     </>
   );
 }

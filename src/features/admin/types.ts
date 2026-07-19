@@ -71,20 +71,11 @@ export type AdminPlan = z.infer<typeof AdminPlanSchema>;
 export const AdminModelSchema = z.object({
   id: z.string(),
   display_name: z.string(),
-  backend: z.string(), // subscription | api | local
+  category: z.string(), // free | paid
   available: z.boolean() // false hides it from the public /models list
 });
 
 export type AdminModel = z.infer<typeof AdminModelSchema>;
-
-export const ProviderCredSchema = z.object({
-  provider: z.string(), // anthropic | openai | local
-  key_set: z.boolean(), // the key itself is never returned
-  base_url: z.string(),
-  updated_at: z.string()
-});
-
-export type ProviderCred = z.infer<typeof ProviderCredSchema>;
 
 export const CreditAdjustResultSchema = z.object({
   balance: z.number(),

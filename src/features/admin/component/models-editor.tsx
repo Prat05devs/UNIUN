@@ -19,7 +19,7 @@ export function ModelsEditor() {
 
   const [id, setId] = useState("");
   const [displayName, setDisplayName] = useState("");
-  const [backend, setBackend] = useState("subscription");
+  const [category, setCategory] = useState("paid");
   const [formError, setFormError] = useState<string | null>(null);
 
   // Claude discovery: only hits the sidecar after the operator asks.
@@ -40,7 +40,7 @@ export function ModelsEditor() {
       await upsertModel({
         id: id.trim(),
         display_name: displayName.trim(),
-        backend
+        category
       });
       setId("");
       setDisplayName("");
@@ -62,7 +62,7 @@ export function ModelsEditor() {
             <tr>
               <th style={{ ...cell, textAlign: "left" }}>Model id</th>
               <th style={{ ...cell, textAlign: "left" }}>Display name</th>
-              <th style={{ ...cell, textAlign: "left" }}>Backend</th>
+              <th style={{ ...cell, textAlign: "left" }}>Category</th>
               <th style={{ ...cell, textAlign: "left" }}>Public</th>
               <th style={{ ...cell, textAlign: "left" }} />
             </tr>
@@ -75,7 +75,7 @@ export function ModelsEditor() {
                 </td>
                 <td style={cell}>{model.display_name}</td>
                 <td style={cell}>
-                  <span className="chip">{model.backend}</span>
+                  <span className="chip">{model.category}</span>
                 </td>
                 <td style={cell}>
                   <button
@@ -89,7 +89,7 @@ export function ModelsEditor() {
                       void upsertModel({
                         id: model.id,
                         display_name: model.display_name,
-                        backend: model.backend,
+                        category: model.category,
                         available: !model.available
                       }).catch((err) =>
                         setFormError(
@@ -151,11 +151,10 @@ export function ModelsEditor() {
             />
           </label>
           <label className="field" style={{ marginBottom: 0 }}>
-            <span>Backend</span>
-            <select value={backend} onChange={(e) => setBackend(e.target.value)}>
-              <option value="subscription">subscription</option>
-              <option value="api">api</option>
-              <option value="local">local</option>
+            <span>Category</span>
+            <select value={category} onChange={(e) => setCategory(e.target.value)}>
+              <option value="paid">paid</option>
+              <option value="free">free</option>
             </select>
           </label>
         </div>
@@ -208,7 +207,7 @@ export function ModelsEditor() {
                     onClick={() => {
                       setId(modelId);
                       setDisplayName(modelId);
-                      setBackend("subscription");
+                      setCategory("paid");
                     }}
                   >
                     {modelId}

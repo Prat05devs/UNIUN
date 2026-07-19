@@ -6,7 +6,6 @@ import { PageLoader } from "@/components/molecules/loading";
 import { Icon } from "@/components/uniun/DsxChrome";
 import { useAdminStats } from "@/features/admin/hooks";
 import { useAuth, useRequireAuth } from "@/features/auth/hooks/useAuth";
-import { KeysCard } from "@/features/keys/component/keys-card";
 import { BillingCard } from "@/features/payments/component/billing-card";
 import { ProfileSection } from "@/features/profile/component/profile-section";
 import { CreditsSummary } from "@/features/usage/component/credits-summary";
@@ -74,13 +73,6 @@ export function DashboardView() {
         <CreditsSummary />
         <BillingCard />
       </div>
-
-      <h2 style={{ marginTop: 48 }}>API keys</h2>
-      <p className="muted" style={{ margin: "8px 0 20px" }}>
-        Use a key as the Bearer token in the UNIUN app or the API. Create one
-        per device so you can revoke them independently.
-      </p>
-      <KeysCard />
 
       <h2 style={{ marginTop: 48 }}>Recent usage</h2>
       <p className="muted" style={{ margin: "8px 0 20px" }}>
