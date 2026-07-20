@@ -19,8 +19,9 @@ export type Plan = z.infer<typeof PlanSchema>;
 export const ModelSchema = z.object({
   id: z.string(),
   display_name: z.string(),
-  // Display label for grouping (subscription/api/local) — not sent anywhere.
-  backend: z.string()
+  // "free" = open to everyone at no charge; "paid" = flat via a subscription
+  // plan that lists it, or per-token from credits. Display label — never sent.
+  category: z.string()
 });
 
 export type Model = z.infer<typeof ModelSchema>;

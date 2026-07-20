@@ -15,10 +15,8 @@ import {
   fetchAdminPrices,
   fetchAdminStats,
   fetchCliproxyModels,
-  fetchProviders,
   patchPlan,
   updateAccount,
-  updateProvider,
   upsertModel,
   upsertPrice
 } from "../services";
@@ -237,7 +235,7 @@ export function useUpsertModel() {
     }: {
       id: string;
       display_name: string;
-      backend: string;
+      category: string;
       available?: boolean;
     }) => upsertModel(id, updates),
     onSuccess: (saved) => {
@@ -278,35 +276,6 @@ export function useCliproxyModels(enabled: boolean) {
     retry: false
   });
   return { discovered: data ?? [], error, isLoading };
-}
-
-// --- provider credentials ---
-
-export function useProviders() {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["admin", "providers"],
-    queryFn: fetchProviders,
-    staleTime: 0
-  });
-  return { providers: data ?? [], error, isLoading };
-}
-
-export function useUpdateProvider() {
-  const queryClient = useQueryClient();
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: ({
-      provider,
-      ...updates
-    }: {
-      provider: string;
-      api_key?: string;
-      base_url?: string;
-    }) => updateProvider(provider, updates),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ["admin", "providers"] });
-    }
-  });
-  return { updateProvider: mutateAsync, isSaving: isPending };
 }
 
 export function useDeletePrice() {

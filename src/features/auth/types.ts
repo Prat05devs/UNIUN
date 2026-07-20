@@ -33,7 +33,11 @@ export const SessionSchema = z.object({
   apiKey: z.string(),
   newAccount: z.boolean(),
   // Optional: sessions stored before the profile feature don't have it.
-  hasProfile: z.boolean().optional()
+  hasProfile: z.boolean().optional(),
+  // True for a session built from a mobile hand-off token (never persisted to
+  // localStorage; the key expires in ~300s and the site can't renew it — see
+  // docs/frontend/BACKEND-UPDATES-web.md §1b).
+  ephemeral: z.boolean().optional()
 });
 
 export type Session = z.infer<typeof SessionSchema>;

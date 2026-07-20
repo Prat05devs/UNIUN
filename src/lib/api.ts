@@ -1,4 +1,4 @@
-import { GATEWAY_URL, SESSION_STORAGE_KEY } from "@/types/constant";
+import { GATEWAY_URL, HANDOFF_TOKEN_KEY, SESSION_STORAGE_KEY } from "@/types/constant";
 import type { Pagination } from "@/types/common";
 
 // Gateway error type codes are stable — branch on `type`, show `message`.
@@ -38,12 +38,17 @@ function storedApiKey(): string | null {
   if (typeof window === "undefined") return null;
   try {
     const raw = window.localStorage.getItem(SESSION_STORAGE_KEY);
-    if (!raw) return null;
-    const session = JSON.parse(raw) as { apiKey?: unknown };
-    return typeof session.apiKey === "string" ? session.apiKey : null;
+    if (raw) {
+      const session = JSON.parse(raw) as { apiKey?: unknown };
+      if (typeof session.apiKey === "string") return session.apiKey;
+    }
   } catch {
-    return null;
+    // fall through to the hand-off token
   }
+  // No persisted login — fall back to a mobile hand-off token, if one was
+  // captured into sessionStorage this tab (docs/frontend/BACKEND-UPDATES-web.md
+  // §1b). It's short-lived and un-renewable; a 401 here just means it expired.
+  return window.sessionStorage.getItem(HANDOFF_TOKEN_KEY);
 }
 
 async function rawRequest<T>(

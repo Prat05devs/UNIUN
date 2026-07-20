@@ -91,8 +91,9 @@ export function LoginForm() {
         )}
 
         <p className="muted" style={{ marginTop: 16, fontSize: ".85rem" }}>
-          Lost every key? Revoke them all from a logged-in device — your next
-          login here will issue a fresh one automatically.
+          Your API key was shown once when the account was created. If the
+          account has no active keys left, logging in issues a fresh one
+          automatically.
         </p>
       </form>
     );
