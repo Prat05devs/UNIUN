@@ -2,7 +2,7 @@ import { schnorr } from "@noble/curves/secp256k1.js";
 import { sha256 } from "@noble/hashes/sha2.js";
 import { bytesToHex, hexToBytes } from "@noble/hashes/utils.js";
 import { apiClient, RequestError } from "@/lib/api";
-import { SESSION_STORAGE_KEY } from "@/types/constant";
+import { HANDOFF_TOKEN_KEY, SESSION_STORAGE_KEY } from "@/types/constant";
 import {
   Challenge,
   ChallengeSchema,
@@ -92,6 +92,62 @@ export async function sessionFromApiKey(
     apiKey,
     newAccount: false,
     hasProfile
+  };
+}
+
+// --- mobile hand-off token (docs/frontend/BACKEND-UPDATES-web.md §1b) ---
+//
+// The app opens the site with `#uniun_token=uk_...` in the URL fragment. We
+// move it into sessionStorage (never localStorage, never a cookie — it must
+// die with the tab) and strip the fragment so it never sits in the address
+// bar or browser history.
+
+// Call once on mount, before first render if possible. No-op when there is
+// no fragment token; safe to call on every page since it only ever reads
+// location.hash for this one param.
+export function consumeHandoffFragment(): void {
+  if (typeof window === "undefined" || !window.location.hash) return;
+  const params = new URLSearchParams(window.location.hash.slice(1));
+  const token = params.get(HANDOFF_TOKEN_KEY);
+  if (!token) return;
+
+  window.sessionStorage.setItem(HANDOFF_TOKEN_KEY, token);
+  window.history.replaceState(
+    null,
+    "",
+    window.location.pathname + window.location.search
+  );
+}
+
+export function loadHandoffToken(): string | null {
+  if (typeof window === "undefined") return null;
+  return window.sessionStorage.getItem(HANDOFF_TOKEN_KEY);
+}
+
+export function clearHandoffToken(): void {
+  if (typeof window === "undefined") return;
+  window.sessionStorage.removeItem(HANDOFF_TOKEN_KEY);
+}
+
+// Resolves a hand-off token to the account it belongs to. Unlike
+// sessionFromApiKey there's no accountId to check against — the token itself
+// is the proof. The token expires in ~300s and can't be renewed by the site;
+// callers should treat a 401 here as "reopen from the app", not a retryable
+// error.
+export async function sessionFromHandoffToken(apiKey: string): Promise<Session> {
+  // /profile has no has_profile field (that's login-only) — derive it from
+  // whether a username has been set.
+  const res = await apiClient.get<{ account_id: string; username: string | null }>(
+    "/uniun/v1/profile",
+    { auth: false, headers: { Authorization: `Bearer ${apiKey}` } }
+  );
+
+  return {
+    accountId: res.data.account_id,
+    apiKey,
+    newAccount: false,
+    hasProfile: res.data.username != null,
+    ephemeral: true
   };
 }
 

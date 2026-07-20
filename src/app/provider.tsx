@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { HandoffNotice } from "@/features/auth/component/handoff-notice";
 import { AuthProvider } from "@/features/auth/hooks/useAuth";
 
 export default function Provider({ children }: { children: React.ReactNode }) {
@@ -23,6 +24,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
+        <HandoffNotice />
         {children}
         <ReactQueryDevtools initialIsOpen={false} />
       </AuthProvider>
